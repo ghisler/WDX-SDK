@@ -1,0 +1,53 @@
+<HTML><HEAD>
+<meta http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+	
+	<TITLE>ContentCompareFiles</TITLE>
+	
+	<META NAME="AUTHOR" CONTENT="Copyright ©2002-2019 Christian Ghisler">
+	<META NAME="GENERATOR" CONTENT="HelpScribble 7.8.0">
+<link href="ie.css" type="text/css" rel="stylesheet">
+<!--[if gte IE 5]>
+<style type="text/css">@import url(ie5+.css);</style>
+<![endif]-->
+</HEAD>
+<BODY>
+<div class="p1"><B>ContentCompareFiles</B></div>
+<div class="p2">&nbsp;</div>
+<div class="p2">ContentCompareFiles is called in Synchronize dirs to compare two files by content, e.g. two text files with different line breaks, one Windows (CRLF) and one Unix (LF only).</div>
+<div class="p2">&nbsp;</div>
+<div class="p2"><B>Declaration:</B></div>
+<div class="p5">&nbsp;</div>
+<div class="p5">int __stdcall ContentCompareFiles(<A HREF="progresscallbackproc.htm">PROGRESSCALLBACKPROC</A><span class="s2"> progresscallback, int compareindex, TCHAR* filename1, TCHAR* filename2,<A HREF="filedetailsstruct.htm"> FileDetailsStruct</span></A><span class="s2">* filedetails);</span></div>
+<div class="p2">&nbsp;</div>
+<div class="p2"><B>Description of parameters:</B></div>
+<div class="p2">&nbsp;</div>
+<div class="p6"><span class="s3">progresscallback  </span>Callback function to inform the calling program about the compare progress</div>
+<div class="p6"><span class="s3">  </span>If progresscallback returned a value other than zero (0), the user pressed the Abort/Cancel button and the comparison MUST be aborted with return value -2.</div>
+<div class="p6"><span class="s3">  </span>You should call this message only every 100-200 milliseconds or so, because callbacks are slow</div>
+<div class="p6"><span class="s3">compareindex  </span>The value returned by ContentGetSupportedField for this compare field (starting with 10000)</div>
+<div class="p6"><span class="s3">filename1  </span>The first name to be compared</div>
+<div class="p6"><span class="s3">filename2  </span>The second name to be compated</div>
+<div class="p6"><span class="s3">filedetails  </span>A structure which informs the plugin about the size, timestamp and attributes of both files</div>
+<div class="p6">&nbsp;</div>
+<div class="p6"><B>Return value:</B></div>
+<div class="p6">&nbsp;</div>
+<div class="p6"><span class="s3">1  </span>The two files are equal, show equal sign in list</div>
+<div class="p6"><span class="s3">2  </span>The two files are equal, show equal sign with 'TXT' below it in list</div>
+<div class="p6"><span class="s3">0  </span>The two files are different</div>
+<div class="p6"><span class="s3">-1  </span>Could not open at least one of the files</div>
+<div class="p6"><span class="s3">-2  </span>Compare aborted</div>
+<div class="p6"><span class="s3">-3  </span>The file cannot be compared with this function, please continue with the next plugin. Example: A plugin which compares two Word files by contents (even if the meta data is different) needs to return -3 if at least one of the two files isn't a Word file</div>
+<div class="p6"><span class="s3">100 or higher  </span>The two files are equal. The plugin file contains a 16x16 icon resource with this numeric ID, to be loaded via</div>
+<div class="p6"><span class="s3">  </span>LoadImage(DllHandle,MAKEINTRESOURCE(id),IMAGE_ICON,16,16,LR_SHARED);</div>
+<div class="p6"><span class="s3">  </span>which will be shown between the two files. The icon must contain a 16 color image, and may also contain higher color images. Please test your icon at least with black on white and white on black window settings (Control panel - Display).</div>
+<div class="p6"><span class="s3">  </span>There are two types of icons you can use:</div>
+<div class="p6"><span class="s3">  </span>1: If the value is &lt;10000, the icon will be drawn in addition to the equal sign (which will be in black or white, depending on the color of the background). The upper 8 pixels (plus 1 pixel optional border) may be used for drawing the additional image or text.</div>
+<div class="p6"><span class="s3">  </span>2: If the value is &gt;=10000, no equal sign will be drawn by TC, so the plugin can use the entire 16x16 space for drawing.</div>
+<div class="p6">&nbsp;</div>
+<div class="p6"><B>Remarks:</B></div>
+<div class="p6">&nbsp;</div>
+<div class="p2">- Do not return 0 (files different) if the two files are binary identical (containing exactly the same data) just because the plugin cannot compare them - this would break the normal compare function. Return -3 instead.</div>
+<div class="p2">- It's recommended to make a binary comparison first if the plugin is for a broad range of files, so the user may use *.* as the file type. Example_ See our "filesys" sample content plugin (text comparison), which makes a binary comparison until it finds the first difference, and then continues with using its text comparison method.</div>
+<div class="p2">
+</div>
+</BODY></HTML>

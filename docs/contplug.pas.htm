@@ -1,0 +1,149 @@
+<HTML><HEAD>
+<meta http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+	
+	<TITLE>contplug.pas</TITLE>
+	
+	<META NAME="AUTHOR" CONTENT="Copyright ©2002-2019 Christian Ghisler">
+	<META NAME="GENERATOR" CONTENT="HelpScribble 7.8.0">
+<link href="ie.css" type="text/css" rel="stylesheet">
+<!--[if gte IE 5]>
+<style type="text/css">@import url(ie5+.css);</style>
+<![endif]-->
+</HEAD>
+<BODY>
+<div class="p5"><B>unit contplug;</B></div>
+<div class="p5"><B>&nbsp; { Contents of file contplug.pas }</B></div>
+<div class="p5">&nbsp;</div>
+<div class="p5"><B>interface</B></div>
+<div class="p5">&nbsp;</div>
+<div class="p5"><B>uses</B></div>
+<div class="p5"><B>&nbsp; Windows;</B></div>
+<div class="p5">&nbsp;</div>
+<div class="p5"><B>const</B></div>
+<div class="p5"><B>&nbsp; ftNoMoreFields&nbsp;&nbsp;&nbsp; = 0;</B></div>
+<div class="p5"><B>&nbsp; ftNumeric32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = 1;</B></div>
+<div class="p5"><B>&nbsp; ftNumeric64&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = 2;</B></div>
+<div class="p5"><B>&nbsp; ftNumericFloating = 3;</B></div>
+<div class="p5"><B>&nbsp; ftDate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = 4;</B></div>
+<div class="p5"><B>&nbsp; ft_Time&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = 5;</B></div>
+<div class="p5"><B>&nbsp; ft_Boolean&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = 6;</B></div>
+<div class="p5"><B>&nbsp; ft_MultipleChoice = 7;</B></div>
+<div class="p5"><B>&nbsp; ft_String&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = 8;</B></div>
+<div class="p5"><B>&nbsp; ft_Fulltext&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = 9;</B></div>
+<div class="p5"><B>&nbsp; ft_DateTime&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = 10;</B></div>
+<div class="p5"><B>&nbsp; ft_StringW&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = 11;</B></div>
+<div class="p5"><B>&nbsp; ft_fulltextw&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = 12;</B></div>
+<div class="p5"><B>&nbsp; ft_comparecontent = 100;</B></div>
+<div class="p5">&nbsp;</div>
+<div class="p5"><B>// for ContentGetValue</B></div>
+<div class="p5"><B>&nbsp; ft_NoSuchField&nbsp;&nbsp;&nbsp; = -1;</B></div>
+<div class="p5"><B>&nbsp; ft_FileError&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = -2;</B></div>
+<div class="p5"><B>&nbsp; ft_FieldEmpty&nbsp;&nbsp;&nbsp;&nbsp; = -3;</B></div>
+<div class="p5"><B>&nbsp; ft_OnDemand&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = -4;</B></div>
+<div class="p5"><B>&nbsp; ft_NotSupported&nbsp;&nbsp; = -5;</B></div>
+<div class="p5"><B>&nbsp; ft_SetCancel&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = -6;</B></div>
+<div class="p5"><B>&nbsp; ft_Delayed&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = 0;</B></div>
+<div class="p5">&nbsp;</div>
+<div class="p5"><B>// for ContentSetValue</B></div>
+<div class="p5"><B>&nbsp; ft_SetSuccess&nbsp;&nbsp;&nbsp;&nbsp; = 0; // setting of the attribute succeeded</B></div>
+<div class="p5">&nbsp;</div>
+<div class="p5"><B>// for ContentGetSupportedFieldFlags</B></div>
+<div class="p5"><B>&nbsp; contFlags_Edit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = 1;</B></div>
+<div class="p5"><B>&nbsp; contFlags_SubstSize&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = 2;</B></div>
+<div class="p5"><B>&nbsp; contFlags_SubstDateTime&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = 4;</B></div>
+<div class="p5"><B>&nbsp; contFlags_SubstDate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = 6;</B></div>
+<div class="p5"><B>&nbsp; contFlags_SubstTime&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = 8;</B></div>
+<div class="p5"><B>&nbsp; contFlags_SubstAttributes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = 10;</B></div>
+<div class="p5"><B>&nbsp; contFlags_SubstAttributeStr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = 12;</B></div>
+<div class="p5"><B>&nbsp; contFlags_PassThrough_Size_Float = 14;</B></div>
+<div class="p5"><B>&nbsp; contFlags_SubstMask&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = 14;</B></div>
+<div class="p5"><B>&nbsp; contFlags_FieldEdit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = 16;</B></div>
+<div class="p5">&nbsp;</div>
+<div class="p5"><B>// for ContentSendStateInformation</B></div>
+<div class="p5"><B>&nbsp; contst_ReadNewDir&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = 1;</B></div>
+<div class="p5"><B>&nbsp; contst_RefreshPressed&nbsp;&nbsp;&nbsp; = 2;</B></div>
+<div class="p5"><B>&nbsp; contst_ShowHint&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = 4;</B></div>
+<div class="p5"><B>&nbsp; setflags_First_Attribute = 1;&nbsp; // First attribute of this file</B></div>
+<div class="p5"><B>&nbsp; setflags_Last_Attribute&nbsp; = 2;&nbsp; // Last attribute of this file</B></div>
+<div class="p5"><B>&nbsp; setflags_Only_Date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = 4;&nbsp; // Only set the date of the datetime value!</B></div>
+<div class="p5"><B>&nbsp; CONTENT_DELAYIFSLOW&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = 1;&nbsp; // ContentGetValue called in foreground</B></div>
+<div class="p5"><B>&nbsp; CONTENT_PASSTHROUGH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = 2;&nbsp; { If requested via contflags_passthrough_size_float: The size</B></div>
+<div class="p5"><B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; is passed in as floating value, TC expects correct value</B></div>
+<div class="p5"><B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; from the given units value, and optionally a text string}</B></div>
+<div class="p5">&nbsp;</div>
+<div class="p5"><B>type</B></div>
+<div class="p5"><B>&nbsp; PContentDefaultParamStruct = ^TContentDefaultParamStruct;</B></div>
+<div class="p5"><B>&nbsp; TContentDefaultParamStruct = record</B></div>
+<div class="p5"><B>&nbsp;&nbsp;&nbsp; Size,</B></div>
+<div class="p5"><B>&nbsp;&nbsp;&nbsp; PluginInterfaceVersionLow,</B></div>
+<div class="p5"><B>&nbsp;&nbsp;&nbsp; PluginInterfaceVersionHi: LongInt;</B></div>
+<div class="p5"><B>&nbsp;&nbsp;&nbsp; DefaultIniName: array[0..MAX_PATH-1] of char;</B></div>
+<div class="p5"><B>&nbsp; end;</B></div>
+<div class="p5">&nbsp;</div>
+<div class="p5"><B>&nbsp; PDateFormat = ^TDateFormat;</B></div>
+<div class="p5"><B>&nbsp; TDateFormat = record</B></div>
+<div class="p5"><B>&nbsp;&nbsp;&nbsp; wYear,</B></div>
+<div class="p5"><B>&nbsp;&nbsp;&nbsp; wMonth,</B></div>
+<div class="p5"><B>&nbsp;&nbsp;&nbsp; wDay: Word;</B></div>
+<div class="p5"><B>&nbsp; end;</B></div>
+<div class="p5">&nbsp;</div>
+<div class="p5"><B>&nbsp; PTimeFormat = ^TTimeFormat;</B></div>
+<div class="p5"><B>&nbsp; TTimeFormat = record</B></div>
+<div class="p5"><B>&nbsp;&nbsp;&nbsp; wHour,</B></div>
+<div class="p5"><B>&nbsp;&nbsp;&nbsp; wMinute,</B></div>
+<div class="p5"><B>&nbsp;&nbsp;&nbsp; wSecond : Word;</B></div>
+<div class="p5"><B>&nbsp; end;</B></div>
+<div class="p5">&nbsp;</div>
+<div class="p5"><B>&nbsp; PFileDetailsStruct = ^TFileDetailsStruct;</B></div>
+<div class="p5"><B>&nbsp; TFileDetailsStruct = record</B></div>
+<div class="p5"><B>&nbsp;&nbsp;&nbsp; FileSize1Lo,</B></div>
+<div class="p5"><B>&nbsp;&nbsp;&nbsp; FileSize1Hi: DWORD;</B></div>
+<div class="p5"><B>&nbsp;&nbsp;&nbsp; FileSize2Lo,</B></div>
+<div class="p5"><B>&nbsp;&nbsp;&nbsp; FileSize1Hi: DWORD;</B></div>
+<div class="p5"><B>&nbsp;&nbsp;&nbsp; FileTime1: TFileTime;</B></div>
+<div class="p5"><B>&nbsp;&nbsp;&nbsp; FileTime2: TFileTime;</B></div>
+<div class="p5"><B>&nbsp;&nbsp;&nbsp; Attr1,</B></div>
+<div class="p5"><B>&nbsp;&nbsp;&nbsp; Attr2: DWORD;</B></div>
+<div class="p5"><B>&nbsp; end;</B></div>
+<div class="p5">&nbsp;</div>
+<div class="p5">&nbsp;</div>
+<div class="p5"><B>type</B></div>
+<div class="p5"><B>&nbsp; TProgressCallbackProc = function(NextBlockData: integer): integer; stdcall;</B></div>
+<div class="p5">&nbsp;</div>
+<div class="p5">&nbsp;</div>
+<div class="p5"><B>implementation</B></div>
+<div class="p5"><B>&nbsp;&nbsp;&nbsp; { Function prototypes: }</B></div>
+<div class="p5">&nbsp;</div>
+<div class="p5"><B>{</B></div>
+<div class="p5"><B>procedure ContentGetDetectString(DetectString: PAnsiChar; MaxLen: integer); stdcall;</B></div>
+<div class="p5"><B>function ContentGetSupportedField(FieldIndex: integer; FieldName, Units: PAnsiChar;</B></div>
+<div class="p5"><B>&nbsp; MaxLen: integer): integer; stdcall;</B></div>
+<div class="p5"><B>function ContentGetValue(FileName: PAnsiChar; FieldIndex, UnitIndex: integer; FieldValue: PByte;</B></div>
+<div class="p5"><B>&nbsp; MaxLen, Flags: integer): integer; stdcall;</B></div>
+<div class="p5"><B>function ContentGetValueW(FileName: PWideChar; FieldIndex, UnitIndex: integer; FieldValue: PByte;</B></div>
+<div class="p5"><B>&nbsp; MaxLen, Flags: integer): integer; stdcall;</B></div>
+<div class="p5"><B>procedure ContentSetDefaultParams(Dps: PContentDefaultParamStruct); stdcall;</B></div>
+<div class="p5"><B>procedure ContentPluginUnloading; stdcall;</B></div>
+<div class="p5"><B>procedure ContentStopGetValue(FileName: PAnsiChar); stdcall;</B></div>
+<div class="p5"><B>procedure ContentStopGetValueW(FileName: PWideChar); stdcall;</B></div>
+<div class="p5"><B>function ContentGetDefaultSortOrder(FieldIndex: integer): integer; stdcall;</B></div>
+<div class="p5"><B>function ContentGetSupportedFieldFlags(FieldIndex: integer): integer; stdcall;</B></div>
+<div class="p5"><B>function ContentSetValue(FileName: PAnsiChar; FieldIndex, UnitIndex, FieldType: integer;</B></div>
+<div class="p5"><B>&nbsp; FieldValue: PByte; Flags: integer): integer; stdcall;</B></div>
+<div class="p5"><B>function ContentSetValueW(FileName: PWideChar; FieldIndex, UnitIndex, FieldType: integer;</B></div>
+<div class="p5"><B>&nbsp; FieldValue: PByte; Flags: integer): integer; stdcall;</B></div>
+<div class="p5"><B>procedure ContentSendStateInformation(State: integer; Path: PAnsiChar); stdcall;</B></div>
+<div class="p5"><B>procedure ContentSendStateInformationW(State: integer; Path: PWideChar); stdcall;</B></div>
+<div class="p5"><B>function ContentEditValue(Handle: THandle; FieldIndex, UnitIndex, FieldType: integer;</B></div>
+<div class="p5"><B>&nbsp; FieldValue: PAnsiChar; MaxLen: integer; Flags: integer; LangIdentifier: PAnsiChar): integer; stdcall;</B></div>
+<div class="p5"><B>function ContentCompareFiles(ProgressCallback: TProgressCallbackProc; CompareIndex: integer;</B></div>
+<div class="p5"><B>&nbsp; FileName1, FileName2: PAnsiChar; FileDetails: PFileDetailsStruct): integer; stdcall;</B></div>
+<div class="p5"><B>function ContentCompareFilesW(ProgressCallback: TProgressCallbackProc; CompareIndex: integer;</B></div>
+<div class="p5"><B>&nbsp; FileName1, FileName2: PWideChar; FileDetails: PFileDetailsStruct): integer; stdcall;</B></div>
+<div class="p5"><B>}</B></div>
+<div class="p5">&nbsp;</div>
+<div class="p5">&nbsp;</div>
+<div class="p5"><B>end.</B></div>
+<div class="p2">
+</div>
+</BODY></HTML>

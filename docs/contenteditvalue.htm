@@ -1,0 +1,67 @@
+<HTML><HEAD>
+<meta http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+	
+	<TITLE>ContentEditValue</TITLE>
+	
+	<META NAME="AUTHOR" CONTENT="Copyright ©2002-2019 Christian Ghisler">
+	<META NAME="GENERATOR" CONTENT="HelpScribble 7.8.0">
+<link href="ie.css" type="text/css" rel="stylesheet">
+<!--[if gte IE 5]>
+<style type="text/css">@import url(ie5+.css);</style>
+<![endif]-->
+</HEAD>
+<BODY>
+<div class="p1"><B>ContentEditValue</B></div>
+<div class="p2">&nbsp;</div>
+<div class="p2">ContentEditValue allows a plugin to implement a custom input dialog to enter special values like date and time. This function is called in change attributes if you returned the flag contflags_fieldedit in ContentGetSupportedFieldFlags for a field.&nbsp;</div>
+<div class="p2">&nbsp;</div>
+<div class="p2"><B>Declaration:</B></div>
+<div class="p5">&nbsp;</div>
+<div class="p5">int __stdcall ContentEditValue(HWND ParentWin, int FieldIndex, int UnitIndex, int FieldType, void* FieldValue, int maxlen, int flags, char* langidentifier);</div>
+<div class="p2">&nbsp;</div>
+<div class="p2"><B>Description of parameters:</B></div>
+<div class="p2">&nbsp;</div>
+<div class="p6"><span class="s3">ParentWin  </span>The parent window handle for the dialog.</div>
+<div class="p6">&nbsp;</div>
+<div class="p6"><span class="s3">FieldIndex  </span>The index of the field for which the content editor is called. This is the same index as the FieldIndex value in ContentGetSupportedField.</div>
+<div class="p6">&nbsp;</div>
+<div class="p6"><span class="s3">UnitIndex  </span>The index of the unit used. <B>Example:</B></div>
+<div class="p6"><span class="s3">  </span>If the plugin returned the following unit string in ContentGetSupportedField:</div>
+<div class="p6"><span class="s3">  </span>bytes|kbytes|Mbytes</div>
+<div class="p6"><span class="s3">  </span>Then a UnitIndex of 0 would mean bytes, 1 means kbytes and 2 means MBytes</div>
+<div class="p6"><span class="s3">  </span>If no unit string was returned, UnitIndex is 0.</div>
+<div class="p6">&nbsp;</div>
+<div class="p6"><span class="s3">FieldType  </span>The type of data passed to the plugin in FieldValue. This is the same type as returned by the plugin via ContentGetSupportedField.</div>
+<div class="p6">&nbsp;</div>
+<div class="p6"><span class="s3">FieldValue  </span>Here the plugin receives the data to be edited, and returns the result back to the caller. The data format depends on the field type:</div>
+<div class="p6"><span class="s3">  </span>ft_numeric_32: FieldValue points to a 32-bit signed integer variable.</div>
+<div class="p6"><span class="s3">  </span>ft_numeric_64: FieldValue points to a 64-bit signed integer variable.</div>
+<div class="p6"><span class="s3">  </span>ft_numeric_floating: FieldValue points to a 64-bit floating point variable (ISO standard double precision)</div>
+<div class="p6"><span class="s3">  </span>ft_date: FieldValue points to a structure containing year,month,day as 2 byte values.</div>
+<div class="p6"><span class="s3">  </span>ft_time: FieldValue points to a structure containing hour,minute,second as 2 byte values.</div>
+<div class="p6"><span class="s3">  </span>ft_boolean: Currently unsupported.</div>
+<div class="p6"><span class="s3">  </span>ft_string: FieldValue is a pointer to a 0-terminated string.</div>
+<div class="p6"><span class="s3">  </span>ft_multiplechoice: Currently unsupported.</div>
+<div class="p6"><span class="s3">  </span>ft_fulltext: Currently unsupported.</div>
+<div class="p6"><span class="s3">  </span>ft_fulltextw: Currently unsupported.</div>
+<div class="p6"><span class="s3">  </span>ft_datetime: A timestamp of type FILETIME, as returned e.g. by FindFirstFile(). It is a 64-bit value representing the number of 100-nanosecond intervals since January 1, 1601. The time MUST be relative to universal time (Greenwich mean time) as returned by the file system, not local time!</div>
+<div class="p6">&nbsp;</div>
+<div class="p6"><span class="s3">maxlen  </span>The maximum number of bytes fitting into the FieldValue variable.</div>
+<div class="p6">&nbsp;</div>
+<div class="p6"><span class="s3">flags  </span>Currently the following flags are defined:</div>
+<div class="p6"><span class="s3">  </span>editflags_initialize: The data passed in via FieldValue should be used to initialize the dialog.</div>
+<div class="p6">&nbsp;</div>
+<div class="p6"><span class="s3">langidentifier  </span>A 1-3 character language identifier, the same as the last part of the language file name used. Example: The German language file is called wcmd_deu.lng, so the langidentifier is "deu". May be used to translate the dialog.</div>
+<div class="p6">&nbsp;</div>
+<div class="p6"><B>Return value:</B></div>
+<div class="p6">&nbsp;</div>
+<div class="p6"><span class="s3">ft_setsuccess  </span>User confirmed dialog with OK, and the data is valid</div>
+<div class="p6"><span class="s3">ft_nosuchfield  </span>The given field index was invalid</div>
+<div class="p6"><span class="s3">ft_setcancel  </span>The user clicked on cancel</div>
+<div class="p6">&nbsp;</div>
+<div class="p6"><B>Remarks:</B></div>
+<div class="p6">&nbsp;</div>
+<div class="p2">Total Commander already implements an internal editor for the fields ft_date, ft_time, and ft_datetime. You can override it with your own by specifying the&nbsp; contflags_fieldedit flag for your date/time fields. Fields of type boolean and multiple choice do not currently support a field editor.</div>
+<div class="p2">
+</div>
+</BODY></HTML>

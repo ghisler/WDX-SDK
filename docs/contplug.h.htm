@@ -1,0 +1,124 @@
+<HTML><HEAD>
+<meta http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+	
+	<TITLE>contplug.h</TITLE>
+	
+	<META NAME="AUTHOR" CONTENT="Copyright ©2002-2019 Christian Ghisler">
+	<META NAME="GENERATOR" CONTENT="HelpScribble 7.8.0">
+<link href="ie.css" type="text/css" rel="stylesheet">
+<!--[if gte IE 5]>
+<style type="text/css">@import url(ie5+.css);</style>
+<![endif]-->
+</HEAD>
+<BODY>
+<div class="p5"><B>// Contents of file contplug.h version 2.10</B></div>
+<div class="p5">&nbsp;</div>
+<div class="p5"><B>#define ft_nomorefields 0</B></div>
+<div class="p5"><B>#define ft_numeric_32 1</B></div>
+<div class="p5"><B>#define ft_numeric_64 2</B></div>
+<div class="p5"><B>#define ft_numeric_floating 3</B></div>
+<div class="p5"><B>#define ft_date 4</B></div>
+<div class="p5"><B>#define ft_time 5</B></div>
+<div class="p5"><B>#define ft_boolean 6</B></div>
+<div class="p5"><B>#define ft_multiplechoice 7</B></div>
+<div class="p5"><B>#define ft_string 8</B></div>
+<div class="p5"><B>#define ft_fulltext 9</B></div>
+<div class="p5"><B>#define ft_datetime 10</B></div>
+<div class="p5"><B>#define ft_stringw 11</B></div>
+<div class="p5"><B>#define ft_fulltextw 12</B></div>
+<div class="p5">&nbsp;</div>
+<div class="p5"><B>#define ft_comparecontent 100</B></div>
+<div class="p5">&nbsp;</div>
+<div class="p5"><B>// for ContentGetValue</B></div>
+<div class="p5"><B>#define ft_nosuchfield -1&nbsp;&nbsp; // error, invalid field number given</B></div>
+<div class="p5"><B>#define ft_fileerror -2&nbsp;&nbsp;&nbsp;&nbsp; // file i/o error</B></div>
+<div class="p5"><B>#define ft_fieldempty -3&nbsp;&nbsp;&nbsp; // field valid, but empty</B></div>
+<div class="p5"><B>#define ft_ondemand -4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // field will be retrieved only when user presses &lt;SPACEBAR&gt;</B></div>
+<div class="p5"><B>#define ft_notsupported -5&nbsp; // function not supported</B></div>
+<div class="p5"><B>#define ft_setcancel -6&nbsp;&nbsp;&nbsp;&nbsp; // user clicked cancel in field editor</B></div>
+<div class="p5"><B>#define ft_delayed 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // field takes a long time to extract -&gt; try again in background</B></div>
+<div class="p5">&nbsp;</div>
+<div class="p5"><B>// for ContentSetValue</B></div>
+<div class="p5"><B>#define ft_setsuccess 0&nbsp;&nbsp;&nbsp;&nbsp; // setting of the attribute succeeded</B></div>
+<div class="p5">&nbsp;</div>
+<div class="p5"><B>// for ContentGetSupportedFieldFlags</B></div>
+<div class="p5"><B>#define contflags_edit 1</B></div>
+<div class="p5"><B>#define contflags_substsize 2</B></div>
+<div class="p5"><B>#define contflags_substdatetime 4</B></div>
+<div class="p5"><B>#define contflags_substdate 6</B></div>
+<div class="p5"><B>#define contflags_substtime 8</B></div>
+<div class="p5"><B>#define contflags_substattributes 10</B></div>
+<div class="p5"><B>#define contflags_substattributestr 12</B></div>
+<div class="p5"><B>#define contflags_passthrough_size_float 14</B></div>
+<div class="p5"><B>#define contflags_substmask 14</B></div>
+<div class="p5"><B>#define contflags_fieldedit 16</B></div>
+<div class="p5">&nbsp;</div>
+<div class="p5"><B>#define contst_readnewdir 1</B></div>
+<div class="p5"><B>#define contst_refreshpressed 2</B></div>
+<div class="p5"><B>#define contst_showhint 4</B></div>
+<div class="p5">&nbsp;</div>
+<div class="p5"><B>#define setflags_first_attribute 1&nbsp;&nbsp;&nbsp;&nbsp; // First attribute of this file</B></div>
+<div class="p5"><B>#define setflags_last_attribute&nbsp; 2&nbsp;&nbsp;&nbsp;&nbsp; // Last attribute of this file</B></div>
+<div class="p5"><B>#define setflags_only_date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4&nbsp;&nbsp;&nbsp;&nbsp; // Only set the date of the datetime value!</B></div>
+<div class="p5">&nbsp;</div>
+<div class="p5"><B>#define editflags_initialize&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp; // The data passed to the plugin may be used to</B></div>
+<div class="p5"><B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // initialize the edit dialog</B></div>
+<div class="p5">&nbsp;</div>
+<div class="p5"><B>#define CONTENT_DELAYIFSLOW 1&nbsp; // ContentGetValue called in foreground</B></div>
+<div class="p5"><B>#define CONTENT_PASSTHROUGH 2&nbsp; // If requested via contflags_passthrough_size_float: The size</B></div>
+<div class="p5"><B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // is passed in as floating value, TC expects correct value</B></div>
+<div class="p5"><B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // from the given units value, and optionally a text string</B></div>
+<div class="p5">&nbsp;</div>
+<div class="p5"><B>typedef struct {</B></div>
+<div class="p5"><B>&nbsp;&nbsp;&nbsp; int size;</B></div>
+<div class="p5"><B>&nbsp;&nbsp;&nbsp; DWORD PluginInterfaceVersionLow;</B></div>
+<div class="p5"><B>&nbsp;&nbsp;&nbsp; DWORD PluginInterfaceVersionHi;</B></div>
+<div class="p5"><B>&nbsp;&nbsp;&nbsp; char DefaultIniName[MAX_PATH];</B></div>
+<div class="p5"><B>} ContentDefaultParamStruct;</B></div>
+<div class="p5">&nbsp;</div>
+<div class="p5"><B>typedef struct {</B></div>
+<div class="p2"><span class="s11"><B>  </span>WORD wYear;</B></div>
+<div class="p2"><span class="s11"><B>  </span>WORD wMonth;</B></div>
+<div class="p2"><span class="s11"><B>  </span>WORD wDay;</B></div>
+<div class="p5"><B>} tdateformat,*pdateformat;</B></div>
+<div class="p5">&nbsp;</div>
+<div class="p5"><B>typedef struct {</B></div>
+<div class="p2"><span class="s11"><B>  </span>WORD wHour;</B></div>
+<div class="p2"><span class="s11"><B>  </span>WORD wMinute;</B></div>
+<div class="p2"><span class="s11"><B>  </span>WORD wSecond;</B></div>
+<div class="p5"><B>} ttimeformat,*ptimeformat;</B></div>
+<div class="p5">&nbsp;</div>
+<div class="p5"><B>typedef struct {</B></div>
+<div class="p2"><span class="s11"><B>  </span>__int64 filesize1;</B></div>
+<div class="p2"><span class="s11"><B>  </span>__int64 filesize2;</B></div>
+<div class="p2"><span class="s11"><B>  </span>FILETIME filetime1;</B></div>
+<div class="p2"><span class="s11"><B>  </span>FILETIME filetime2;</B></div>
+<div class="p2"><span class="s11"><B>  </span>DWORD attr1;</B></div>
+<div class="p2"><span class="s11"><B>  </span>DWORD attr2;</B></div>
+<div class="p5"><B>} FileDetailsStruct;</B></div>
+<div class="p5">&nbsp;</div>
+<div class="p5"><B>typedef int (__stdcall *PROGRESSCALLBACKPROC)(int nextblockdata);</B></div>
+<div class="p5">&nbsp;</div>
+<div class="p5"><B>int __stdcall ContentGetDetectString(char* DetectString,int maxlen);</B></div>
+<div class="p5"><B>int __stdcall ContentGetSupportedField(int FieldIndex,char* FieldName,char* Units,int maxlen);</B></div>
+<div class="p5"><B>int __stdcall ContentGetValue(char* FileName,int FieldIndex,int UnitIndex,void* FieldValue,int maxlen,int flags);</B></div>
+<div class="p5"><B>int __stdcall ContentGetValueW(WCHAR* FileName,int FieldIndex,int UnitIndex,void* FieldValue,int maxlen,int flags);</B></div>
+<div class="p5"><B>void __stdcall ContentSetDefaultParams(ContentDefaultParamStruct* dps);</B></div>
+<div class="p5"><B>void __stdcall ContentPluginUnloading(void);</B></div>
+<div class="p5"><B>void __stdcall ContentStopGetValue(char* FileName);</B></div>
+<div class="p5"><B>void __stdcall ContentStopGetValueW(WCHAR* FileName);</B></div>
+<div class="p5"><B>int __stdcall ContentGetDefaultSortOrder(int FieldIndex);</B></div>
+<div class="p5"><B>int __stdcall ContentGetSupportedFieldFlags(int FieldIndex);</B></div>
+<div class="p5"><B>int __stdcall ContentSetValue(char* FileName,int FieldIndex,int UnitIndex,int FieldType,void* FieldValue,int flags);</B></div>
+<div class="p5"><B>int __stdcall ContentSetValueW(WCHAR* FileName,int FieldIndex,int UnitIndex,int FieldType,void* FieldValue,int flags);</B></div>
+<div class="p5"><B>int __stdcall ContentEditValue(HWND ParentWin,int FieldIndex,int UnitIndex,int FieldType,</B></div>
+<div class="p5"><B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void* FieldValue,int maxlen,int flags,char* langidentifier);</B></div>
+<div class="p5"><B>void __stdcall ContentSendStateInformation(int state,char* path);</B></div>
+<div class="p5"><B>void __stdcall ContentSendStateInformationW(int state,WCHAR* path);</B></div>
+<div class="p5"><B>int __stdcall ContentCompareFiles(PROGRESSCALLBACKPROC progresscallback,</B></div>
+<div class="p5"><B>&nbsp; int compareindex,char* filename1,char* filename2,FileDetailsStruct* filedetails);</B></div>
+<div class="p5"><B>int __stdcall ContentCompareFilesW(PROGRESSCALLBACKPROC progresscallback,</B></div>
+<div class="p5"><B>&nbsp; int compareindex,WCHAR* filename1,WCHAR* filename2,FileDetailsStruct* filedetails);</B></div>
+<div class="p2">
+</div>
+</BODY></HTML>

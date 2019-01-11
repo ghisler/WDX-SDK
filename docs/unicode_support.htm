@@ -1,0 +1,75 @@
+<HTML><HEAD>
+<meta http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+	
+	<TITLE>Unicode Support</TITLE>
+	
+	<META NAME="AUTHOR" CONTENT="Copyright ©2002-2019 Christian Ghisler">
+	<META NAME="GENERATOR" CONTENT="HelpScribble 7.8.0">
+<link href="ie.css" type="text/css" rel="stylesheet">
+<!--[if gte IE 5]>
+<style type="text/css">@import url(ie5+.css);</style>
+<![endif]-->
+</HEAD>
+<BODY>
+<div class="p1"><B>Unicode Support</B></div>
+<div class="p2">&nbsp;</div>
+<div class="p2">With Total Commander 7.5 (content plugin interface 2.0), Unicode support has been added to all plugin types. In principle, you need to implement the same functions as for ANSI, with two differences: The function name is changed from FunctionName to FunctionNameW, and ANSI strings are changed to wide char names. Note: You need to return the type ft_stringw instead of ft_string for Unicode content in ContentGetValueW. This allows you to return either ANSI or Unicode content.</div>
+<div class="p2">&nbsp;</div>
+<div class="p2">Total Commander will call the Unicode functions on all NT-based systems (Windows NT, 2000, XP) if they are present. If not, or on Windows 9x/ME, Total Commander will call the ANSI functions.</div>
+<div class="p2">&nbsp;</div>
+<div class="p2"><B>The following functions of the content plugin interface support Unicode:</B></div>
+<div class="p14">&nbsp;</div>
+<div class="p14"><A HREF="contentgetvalue.htm">ContentGetValue</A><span class="s12">W</span></div>
+<div class="p2"><A HREF="contentstopgetvalue.htm">ContentStopGetValue</A>W</div>
+<div class="p2"><A HREF="contentsetvalue.htm">ContentSetValue</A>W</div>
+<div class="p2"><A HREF="contentsendstateinformation.htm">ContentSendStateInformation</A>W</div>
+<div class="p2">&nbsp;</div>
+<div class="p2"><B>The following functions do not exist in a Unicode form and must be implemented as ANSI:</B></div>
+<div class="p2">&nbsp;</div>
+<div class="p2"><A HREF="contentgetdetectstring.htm">ContentGetDetectString</A> - detect strings MUST be ANSI!</div>
+<div class="p2"><A HREF="contentgetsupportedfield.htm">ContentGetSupportedField</A> - field names MUST be ANSI! Use a <A HREF="lng_files_for_content_plugins.htm">LNG file</A> for translations!</div>
+<div class="p2"><A HREF="contentgetsupportedfieldflags.htm">ContentGetSupportedFieldFlags</A></div>
+<div class="p2"><A HREF="contentsetdefaultparams.htm">ContentSetDefaultParams</A></div>
+<div class="p2"><A HREF="contentgetdefaultsortorder.htm">ContentGetDefaultSortOrder</A></div>
+<div class="p2"><A HREF="contenteditvalue.htm">ContentEditValue</A></div>
+<div class="p2"><A HREF="contentpluginunloading.htm">ContentPluginUnloading</A></div>
+<div class="p2">&nbsp;</div>
+<div class="p2"><B>What's the easiest way to support Unicode in an existing plugin?</B></div>
+<div class="p2">&nbsp;</div>
+<div class="p2"><B>There are actually two ways, an "all in one" combined Unicode/ANSI plugin, and two separate plugins.</B></div>
+<div class="p2">&nbsp;</div>
+<div class="p2"><B>A. Combined Unicode/ANSI plugin</B></div>
+<div class="p2"><B>1. </B>Get my sample plugin fsplugin (file system plugins section) even if you write a different type of plugin!</div>
+<div class="p2"><B>2. </B>Add the files cunicode.h and cunicode.cpp to your project. They contain various functions to make Unicode support easier.</div>
+<div class="p2"><B>3. </B>Convert your existing functions to Unicode and rename them to FunctionNameW. For all file functions like CreateFile, do not call their Unicode counterpart CreateFileW directly. Instead, call the functions from cunicode.cpp like CreateFileT. These functions automatically call the right Unicode or ANSI function, and even support file name lengths &gt;259 characters!</div>
+<div class="p2"><B>4. </B>For each converted function like FunctionNameW, recreate a function FunctionName which you call this way:</div>
+<div class="p2">&nbsp;</div>
+<div class="p2">int __stdcall FunctionName(char* SomeString1,char* SomeString2)</div>
+<div class="p2">{</div>
+<div class="p2"><span class="s4">  </span>WCHAR SomeString1W[wdirtypemax],SomeString2W[wdirtypemax];</div>
+<div class="p2"><span class="s4">  </span>return FunctionNameW(awfilenamecopy(SomeString1W,SomeString1),awfilenamecopy(SomeString2W,SomeString2));</div>
+<div class="p2">}</div>
+<div class="p2">See the implementation of FsContentGetValue in the above plugin for function which need to return string values.</div>
+<div class="p2">&nbsp;</div>
+<div class="p2">The Macro awfilenamecopy will convert the ANSI string SomeString1 to Unicode and store it inSomeString1W. This variable must not be a pointer, because awfilenamecopy uses "countof" to get the target length.</div>
+<div class="p2">&nbsp;</div>
+<div class="p2"><B>B. Two separate plugins, one Unicode, one ANSI</B></div>
+<div class="p2">This method is especially suited for C/C++ plugins. Have a look at the WebDAV file system plugin sources for a sample plugin using this method. Here are the steps to convert an ANSI plugin to Unicode this way:</div>
+<div class="p2"><B>1. </B>Replace all string references like char* and LPSTR by TCHAR*</div>
+<div class="p2"><B>2. </B>Replace all string handing functions like strchr or strcpy by _tcschr and _tcscpy</div>
+<div class="p2"><B>3. </B>Put TEXT() around all string constants</div>
+<div class="p15"><B>4. </B>Make a copy of the current project within the same project map. Add the UNICODE and _UNICODE defines in the compiler settings of the Unicode project</div>
+<div class="p2"><B>5. </B>Remove the .def file from the Unicode project. Create a new .def file, where the functions are defined as follows:</div>
+<div class="p16">ContentGetValueW=ContentGetValue</div>
+<div class="p16">ContentStopGetValueW=ContentStopGetValue</div>
+<div class="p16">ContentGetDetectString</div>
+<div class="p16">...</div>
+<div class="p16">Note the difference between Unicode and non-Unicode functions (see list above which are Unicode)</div>
+<div class="p2"><B>6. </B>Set the output file to the name &lt;pluginname&gt;.uwdx, in the same directory as the .wdx file from the first project</div>
+<div class="p15">&nbsp;</div>
+<div class="p15">Total Commander will try to load a .uwdx file with the same name as the .wdx file on Unicode systems (Win NT, 2000, XP, Vista, 7).</div>
+<div class="p15">&nbsp;</div>
+<div class="p2"><B>Note: </B>You cannot have just the .uwdx plugin if you want to create a Unicode-only plugin! Instead, create a combined Unicode/ANSI plugin, where the ANSI functions are just empty functions returning an error.</div>
+<div class="p2">
+</div>
+</BODY></HTML>

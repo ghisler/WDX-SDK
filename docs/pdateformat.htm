@@ -1,0 +1,41 @@
+<HTML><HEAD>
+<meta http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+	
+	<TITLE>pdateformat</TITLE>
+	
+	<META NAME="AUTHOR" CONTENT="Copyright ©2002-2019 Christian Ghisler">
+	<META NAME="GENERATOR" CONTENT="HelpScribble 7.8.0">
+<link href="ie.css" type="text/css" rel="stylesheet">
+<!--[if gte IE 5]>
+<style type="text/css">@import url(ie5+.css);</style>
+<![endif]-->
+</HEAD>
+<BODY>
+<div class="p1"><B>pdateformat</B></div>
+<div class="p2">&nbsp;</div>
+<div class="p2">pdateformat can be used for setting the date value in ContentGetValue.</div>
+<div class="p2">&nbsp;</div>
+<div class="p2"><B>Declaration:</B></div>
+<div class="p2">&nbsp;</div>
+<div class="p2">typedef struct {</div>
+<div class="p2">&nbsp;&nbsp;&nbsp; WORD wYear;</div>
+<div class="p2">&nbsp;&nbsp;&nbsp; WORD wMonth;</div>
+<div class="p2">&nbsp;&nbsp;&nbsp; WORD wDay;</div>
+<div class="p2">} *pdateformat;</div>
+<div class="p2">&nbsp;</div>
+<div class="p2"><B>Example usage:</B></div>
+<div class="p2">&nbsp;</div>
+<div class="p2">int __stdcall ContentGetValue(char* FileName,int FieldIndex,int UnitIndex,void* FieldValue,int maxlen,int flags)</div>
+<div class="p2">{</div>
+<div class="p2">&nbsp;&nbsp;&nbsp; WORD Year,Month,Day;</div>
+<div class="p2">&nbsp;&nbsp;&nbsp; if (FieldIndex==index_of_date_field) {</div>
+<div class="p2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GetFileDate(FileName,&amp;Year,&amp;Month,&amp;Day);</div>
+<div class="p2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ((pdateformat)FieldValue)-&gt;wYear=Year;</div>
+<div class="p2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ((pdateformat)FieldValue)-&gt;wMonth=Month;</div>
+<div class="p2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ((pdateformat)FieldValue)-&gt;wDay=Day;</div>
+<div class="p2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ft_date;</div>
+<div class="p2">&nbsp;&nbsp;&nbsp; }</div>
+<div class="p2">}
+
+</div>
+</BODY></HTML>

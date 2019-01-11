@@ -1,0 +1,48 @@
+<HTML><HEAD>
+<meta http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+	
+	<TITLE>Overview</TITLE>
+	
+	<META NAME="AUTHOR" CONTENT="Copyright ©2002-2019 Christian Ghisler">
+	<META NAME="GENERATOR" CONTENT="HelpScribble 7.8.0">
+<link href="ie.css" type="text/css" rel="stylesheet">
+<!--[if gte IE 5]>
+<style type="text/css">@import url(ie5+.css);</style>
+<![endif]-->
+</HEAD>
+<BODY>
+<div class="p1"><B>Overview</B></div>
+<div class="p2">&nbsp;</div>
+<div class="p2">This help file is about writing content plugins for Total Commander. Content plugins are used for several purposes: For showing custom columns in the file lists, for searching, and in the multi-rename tool.</div>
+<div class="p2">&nbsp;</div>
+<div class="p2"><B>The minimum functions needed for a Content plugin are:</B></div>
+<div class="p10"><span class="s9"><A HREF="contentgetsupportedfield.htm">ContentGetSupportedField</A>  </span>Gets the names of the supported fields</div>
+<div class="p10"><span class="s9"><A HREF="contentgetvalue.htm">ContentGetValue</A>  </span>Gets a value for the selected field</div>
+<div class="p2">&nbsp;</div>
+<div class="p2"><B>The following are optional functions:</B></div>
+<div class="p10"><span class="s9"><A HREF="contentgetdetectstring.htm">ContentGetDetectString</A>  </span>Allows TC to determine which file types are supported by the plugin, without loading the plugin.</div>
+<div class="p10"><span class="s9"><A HREF="contentsetdefaultparams.htm">ContentSetDefaultParams</A>  </span>Informs the plugin about settings like plugin interface version and ini file location.</div>
+<div class="p10"><span class="s9"><A HREF="contentstopgetvalue.htm">ContentStopGetValue</A>  </span>Informs the plugin that it should abort a lengthy ContentGetValue operation.</div>
+<div class="p10"><span class="s9"><A HREF="contentgetdefaultsortorder.htm">ContentGetDefaultSortOrder</A>  </span>Choose a default sort order (ascending or descending) for a column.</div>
+<div class="p10"><span class="s9"><A HREF="contentpluginunloading.htm">ContentPluginUnloading</A>  </span>Called when your plugin is unloaded.</div>
+<div class="p10"><span class="s9"><A HREF="contentgetsupportedfieldflags.htm">ContentGetSupportedFieldFlags</A>  </span>Called to get special flags, e.g. whether a field can be changed with ContentSetValue</div>
+<div class="p10"><span class="s9"><A HREF="contentsetvalue.htm">ContentSetValue</A>  </span>Used to change a field, e.g. set a file date</div>
+<div class="p10"><span class="s9"><A HREF="contenteditvalue.htm">ContentEditValue</A>  </span>Used to open a field-specific value editor in the change attributes dialog</div>
+<div class="p10"><span class="s9"><A HREF="contentcomparefiles.htm">ContentCompareFiles</A>  </span>Used in "Synchronize dirs" to compare two files by a custom method</div>
+<div class="p11">&nbsp;</div>
+<div class="p6">&nbsp;</div>
+<div class="p2"><B>How it works:</B></div>
+<div class="p2">&nbsp;</div>
+<div class="p2">When installing the plugin, Total Commander calls <A HREF="contentgetdetectstring.htm">ContentGetDetectString</A> (if implemented) to find out what file types are supported by the plugin. The content string may be modified manually by the user to include/exclude certain file types. It's recommended not to use detect strings which check the file by contents, because ContentGetDetectString cannot be called delayed, so it would slow down file list display quite a lot.</div>
+<div class="p2">&nbsp;</div>
+<div class="p2">When Total Commander needs information about a specific file, it first parses the detect string to determine whether the plugin needs to be called for that file or not. If yes, it then calls <A HREF="contentgetsupportedfield.htm">ContentGetSupportedField</A> in a loop, to enumerate all available fields. This info is then cached, so TC doesn't have to call the function for each file separately. If a <A HREF="lng_files_for_content_plugins.htm">language file</A> with the same name as the plugin but with extension .lng is present, Total Commander will automatically translate the returned field names. To request the contents of a field for a specific file, the function <A HREF="contentgetvalue.htm">ContentGetValue</A> will be called.</div>
+<div class="p2">&nbsp;</div>
+<div class="p2"><B>Notes:</B></div>
+<div class="p2"><B>1.</B> It's quite important to create a good detection string, especially if calling of your plugin is slow! If you cannot make a good detection string, then make sure that your plugin doesn't have any static objects defined as global variables! These would be loaded with the DLL! Only create such objects in the called functions, where needed!</div>
+<div class="p2">&nbsp;</div>
+<div class="p2"><B>2.</B> If the parsing of a file is very slow compared to the extraction of a field, it may be reasonable to cache all fields for a given file until the next file name is requested. This would make it faster to request multiple fields from the same file. Such a cache could be implemented with two fields, a name field storing the last name for which the cached information was stored, and a structure containing the extracted information. Please note that if your plugin returns ft_delayed, you have to take measures so the cache is protected from multiple simultaneous calls to ContentGetValue. This can be done using a semaphore.</div>
+<div class="p2">&nbsp;</div>
+<div class="p2"><B>3.</B> ContentSetValue should only be implemented where it makes sense! For example, a plugin which shows the file's size in various forms does not need to offer this function, because it makes no sense to change a file's size via the attributes dialog.</div>
+<div class="p2">
+</div>
+</BODY></HTML>

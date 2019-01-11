@@ -1,0 +1,33 @@
+<HTML><HEAD>
+<meta http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+	
+	<TITLE>PROGRESSCALLBACKPROC</TITLE>
+	
+	<META NAME="AUTHOR" CONTENT="Copyright ©2002-2019 Christian Ghisler">
+	<META NAME="GENERATOR" CONTENT="HelpScribble 7.8.0">
+<link href="ie.css" type="text/css" rel="stylesheet">
+<!--[if gte IE 5]>
+<style type="text/css">@import url(ie5+.css);</style>
+<![endif]-->
+</HEAD>
+<BODY>
+<div class="p1"><B>PROGRESSCALLBACKPROC</B></div>
+<div class="p2">&nbsp;</div>
+<div class="p2">PROGRESSCALLBACKPROC is a callback function which your plugin needs to call during a call to <A HREF="contentcomparefiles.htm">ContentCompareFiles</A> to inform the host program about the progress of the comparison.</div>
+<div class="p2">&nbsp;</div>
+<div class="p2"><B>Declaration:</B></div>
+<div class="p5">&nbsp;</div>
+<div class="p5">typedef int (__stdcall *PROGRESSCALLBACKPROC)(int nextblockdata);</div>
+<div class="p2">&nbsp;</div>
+<div class="p2"><B>Description of parameters:</B></div>
+<div class="p2">&nbsp;</div>
+<div class="p6"><span class="s3">nextblockdata  </span>The number of bytes compared since the last call of <span class="s2">PROGRESSCALLBACKPROC.</span></div>
+<div class="p6">&nbsp;</div>
+<div class="p6"><B>Return value:</B></div>
+<div class="p6">&nbsp;</div>
+<div class="p6"><span class="s3">0  </span>All OK, continue</div>
+<div class="p6"><span class="s3">other than 0  </span>The user pressed the Cancel/Abort button</div>
+<div class="p13">&nbsp;</div>
+<div class="p6">
+</div>
+</BODY></HTML>

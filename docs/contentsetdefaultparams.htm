@@ -1,0 +1,35 @@
+<HTML><HEAD>
+<meta http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+	
+	<TITLE>ContentSetDefaultParams</TITLE>
+	
+	<META NAME="AUTHOR" CONTENT="Copyright ©2002-2019 Christian Ghisler">
+	<META NAME="GENERATOR" CONTENT="HelpScribble 7.8.0">
+<link href="ie.css" type="text/css" rel="stylesheet">
+<!--[if gte IE 5]>
+<style type="text/css">@import url(ie5+.css);</style>
+<![endif]-->
+</HEAD>
+<BODY>
+<div class="p1"><B>ContentSetDefaultParams</B></div>
+<div class="p2">&nbsp;</div>
+<div class="p2">ContentSetDefaultParams is called immediately after loading the DLL.</div>
+<div class="p2">&nbsp;</div>
+<div class="p2"><B>Declaration:</B></div>
+<div class="p5">&nbsp;</div>
+<div class="p5">void __stdcall ContentSetDefaultParams(ContentDefaultParamStruct* dps);</div>
+<div class="p2">&nbsp;</div>
+<div class="p2"><B>Description of parameters:</B></div>
+<div class="p5">&nbsp;</div>
+<div class="p6"><span class="s6">dps  </span>This structure of type <A HREF="contentdefaultparamstruct.htm">ContentDefaultParamStruct</A> currently contains the version number of the plugin interface, and the suggested location for the settings file (ini file). It is recommended to store any plugin-specific information either directly in that file, or in that directory under a different name. Make sure to use a unique header when storing data in this file, because it is shared by other file system plugins! If your plugin needs more than 1kbyte of data, you should use your own ini file because ini files are limited to 64k.</div>
+<div class="p6">&nbsp;</div>
+<div class="p6"><B>Return value:</B></div>
+<div class="p2">&nbsp;</div>
+<div class="p2">The function has no return value:</div>
+<div class="p6">&nbsp;</div>
+<div class="p2"><B>Note:</B></div>
+<div class="p2">&nbsp;</div>
+<div class="p2">Since this is a new plugin interface, this function will be called in all versions of Total Commander supporting content plugins.</div>
+<div class="p2">
+</div>
+</BODY></HTML>

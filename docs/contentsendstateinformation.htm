@@ -1,0 +1,44 @@
+<HTML><HEAD>
+<meta http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+	
+	<TITLE>ContentSendStateInformation</TITLE>
+	
+	<META NAME="AUTHOR" CONTENT="Copyright ©2002-2019 Christian Ghisler">
+	<META NAME="GENERATOR" CONTENT="HelpScribble 7.8.0">
+<link href="ie.css" type="text/css" rel="stylesheet">
+<!--[if gte IE 5]>
+<style type="text/css">@import url(ie5+.css);</style>
+<![endif]-->
+</HEAD>
+<BODY>
+<div class="p1"><B>ContentSendStateInformation</B></div>
+<div class="p2">&nbsp;</div>
+<div class="p2">ContentSendStateInformation is called to inform the plugin about a state change.</div>
+<div class="p2">&nbsp;</div>
+<div class="p2"><B>Declaration:</B></div>
+<div class="p5">&nbsp;</div>
+<div class="p5">void __stdcall ContentSendStateInformation(int state,char* path);</div>
+<div class="p2">&nbsp;</div>
+<div class="p2"><B>Description of parameters:</B></div>
+<div class="p2">&nbsp;</div>
+<div class="p6"><span class="s3">state  </span>The state which has changed. The following states are defined:</div>
+<div class="p6"><span class="s3">  </span>contst_readnewdir: It is called when TC reads one of the file lists.</div>
+<div class="p6"><span class="s3">  </span>contst_refreshpressed: The user has pressed F2 or Ctrl+R to force a reload.</div>
+<div class="p6"><span class="s3">  </span>contst_showhint: A tooltip/hint window is shown for the current file.</div>
+<div class="p6">&nbsp;</div>
+<div class="p6"><span class="s3">path  </span>Current path. In case of contst_showhint, this is the path to the file, otherwise to the current directory.</div>
+<div class="p6">&nbsp;</div>
+<div class="p6"><B>Return value:</B></div>
+<div class="p6">&nbsp;</div>
+<div class="p6">This function has no return value.</div>
+<div class="p6">&nbsp;</div>
+<div class="p6"><B>Remarks:</B></div>
+<div class="p6">&nbsp;</div>
+<div class="p2">- This function may be used to clear a directory cache when called with parameter contst_refreshpressed or with contst_readnewdir, depending on the needs of the plugin.</div>
+<div class="p2">- When the user presses F2 or Ctrl+R in custom columns view or thumbnails view, ContentSendStateInformation is called first with parameter contst_refreshpressed, then with contst_readnewdir.</div>
+<div class="p2">- When the user changes to a different directory in custom columns view or thumbnails view, ContentSendStateInformation is called only with parameter contst_readnewdir.</div>
+<div class="p2">- When the user switches from full view to custom columns view or thumbnails view, ContentSendStateInformation is not called at all!</div>
+<div class="p2">- Do not ignore the state parameter, there may be more parameters added in future versions!
+
+</div>
+</BODY></HTML>

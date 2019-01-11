@@ -1,0 +1,138 @@
+<HTML><HEAD>
+<meta http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+	
+	<TITLE>PowerBasic sample</TITLE>
+	
+	<META NAME="AUTHOR" CONTENT="Copyright ©2002-2019 Christian Ghisler">
+	<META NAME="GENERATOR" CONTENT="HelpScribble 7.8.0">
+<link href="ie.css" type="text/css" rel="stylesheet">
+<!--[if gte IE 5]>
+<style type="text/css">@import url(ie5+.css);</style>
+<![endif]-->
+</HEAD>
+<BODY>
+<div class="p5">' PowerBasic for Windows</div>
+<div class="p5">&nbsp;</div>
+<div class="p5">' © 2005, Alexander Asyabrik aka Shura</div>
+<div class="p5">&nbsp;</div>
+<div class="p5">#Compile Dll</div>
+<div class="p5">#Include "WIN32API.INC"</div>
+<div class="p5">&nbsp;</div>
+<div class="p5">%ft_nomorefields = 0</div>
+<div class="p5">%ft_numeric_32 = 1</div>
+<div class="p5">%ft_numeric_64 = 2</div>
+<div class="p5">%ft_numeric_floating = 3</div>
+<div class="p5">%ft_date = 4</div>
+<div class="p5">%ft_time = 5</div>
+<div class="p5">%ft_boolean = 6</div>
+<div class="p5">%ft_multiplechoice = 7</div>
+<div class="p5">%ft_string = 8</div>
+<div class="p5">%ft_fulltext = 9</div>
+<div class="p5">%ft_datetime = 10</div>
+<div class="p5">%ft_stringw = 11</div>
+<div class="p5">%ft_fulltextw = 12</div>
+<div class="p5">&nbsp;</div>
+<div class="p5">' &gt;&gt; for ContentGetValue</div>
+<div class="p5">%ft_nosuchfield = -1&nbsp;&nbsp;&nbsp; 'error, invalid field number given</div>
+<div class="p5">%ft_fileerror = -2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'file i/o error</div>
+<div class="p5">%ft_fieldempty = -3&nbsp;&nbsp;&nbsp;&nbsp; 'field valid, but Empty</div>
+<div class="p5">%ft_ondemand = -4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'field will be retrieved only when User presses &lt;SPACEBAR&gt;</div>
+<div class="p5">%ft_delayed = 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'field takes a Long time To extract -&gt; Try again In background</div>
+<div class="p5">&nbsp;</div>
+<div class="p5">%CONTENT_DELAYIFSLOW=1&nbsp;&nbsp; 'ContentGetValue called in foreground</div>
+<div class="p5">&nbsp;</div>
+<div class="p5">&nbsp;</div>
+<div class="p5">Type TimeFormat</div>
+<div class="p5">&nbsp;&nbsp;&nbsp; wHour As Word</div>
+<div class="p5">&nbsp;&nbsp;&nbsp; wMinute As Word</div>
+<div class="p5">&nbsp;&nbsp;&nbsp; wSecond As Word</div>
+<div class="p5">End Type</div>
+<div class="p5">&nbsp;</div>
+<div class="p5">Type DateFormat</div>
+<div class="p5">&nbsp;&nbsp;&nbsp; wYear As Word</div>
+<div class="p5">&nbsp;&nbsp;&nbsp; wMonth As Word</div>
+<div class="p5">&nbsp;&nbsp;&nbsp; wDay As Word</div>
+<div class="p5">End Type</div>
+<div class="p5">&nbsp;</div>
+<div class="p5">%MaxStr=2048 ' Maximum length of your string data, can be smaller</div>
+<div class="p5">&nbsp;</div>
+<div class="p5">Union uFieldValue</div>
+<div class="p5">&nbsp; fvNumeric_32&nbsp; As Long&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' ft_numeric_32</div>
+<div class="p5">&nbsp; fvNumeric_64 As Quad&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' ft_numeric_64</div>
+<div class="p5">&nbsp; fvNumeric_floating As Double&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' ft_numeric_floating</div>
+<div class="p5">&nbsp; fvDate As DateFormat&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' ft_date</div>
+<div class="p5">&nbsp; fvTime As TimeFormat&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' ft_time</div>
+<div class="p5">&nbsp; fvBoolean As Long&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' ft_boolean</div>
+<div class="p5">&nbsp; fvMultiplechoice As Asciiz * %MaxStr ' ft_multiplechoice</div>
+<div class="p5">&nbsp; fvString As Asciiz * %MaxStr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' ft_string</div>
+<div class="p5">&nbsp; fvFulltext As Asciiz * %MaxStr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' ft_fulltext</div>
+<div class="p5">&nbsp; fvDatetime As FILETIME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' ft_datetime</div>
+<div class="p5">End Union</div>
+<div class="p5">&nbsp;</div>
+<div class="p5">Type ContentDefaultParamStruct</div>
+<div class="p5">&nbsp;&nbsp; iSize As Long</div>
+<div class="p5">&nbsp;&nbsp; PluginInterfaceVersionLow As Dword</div>
+<div class="p5">&nbsp;&nbsp; PluginInterfaceVersionHi As Dword</div>
+<div class="p5">&nbsp;&nbsp; DefaultIniName As Asciiz * %MAX_PATH</div>
+<div class="p5">End Type</div>
+<div class="p5">&nbsp;</div>
+<div class="p5">&nbsp;</div>
+<div class="p5">Function ContentGetSupportedField Alias _</div>
+<div class="p5">&nbsp;&nbsp; "ContentGetSupportedField"&nbsp; (ByVal FieldIndex As Long, _</div>
+<div class="p5">&nbsp;&nbsp; FieldName As Asciiz, sUnits As Asciiz, _</div>
+<div class="p5">&nbsp;&nbsp; ByVal maxlen As Long) Export As Long</div>
+<div class="p5">&nbsp;</div>
+<div class="p5">&nbsp;</div>
+<div class="p5">Function ContentGetValue Alias&nbsp; "ContentGetValue"&nbsp; ( _</div>
+<div class="p5">&nbsp;&nbsp; FileName As Asciiz, ByVal FieldIndex As Long, _</div>
+<div class="p5">&nbsp;&nbsp; ByVal UnitIndex As Long, FieldValue As uFieldValue, _</div>
+<div class="p5">&nbsp;&nbsp; ByVal maxlen As Long, ByVal flags As Long) Export As Long</div>
+<div class="p5">&nbsp;</div>
+<div class="p5">&nbsp;</div>
+<div class="p5">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' Some samples for FieldValue :</div>
+<div class="p5">&nbsp;</div>
+<div class="p5">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'FieldValue.fvString = "Some String"</div>
+<div class="p5">&nbsp;</div>
+<div class="p5">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'FieldValue.fvTime.wHour&nbsp;&nbsp; = 10</div>
+<div class="p5">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'FieldValue.fvTime.wMinute = 30</div>
+<div class="p5">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'FieldValue.fvTime.wSecond = 15</div>
+<div class="p5">&nbsp;</div>
+<div class="p5">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'FieldValue.fvMultiplechoice = "male|female|n/a"</div>
+<div class="p5">&nbsp;</div>
+<div class="p5">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' etc</div>
+<div class="p5">&nbsp;</div>
+<div class="p5">Sub ContentGetDetectString Alias&nbsp; "ContentGetDetectString" ( _</div>
+<div class="p5">&nbsp;&nbsp; DetectString As Asciiz, ByVal maxlen As Long) Export</div>
+<div class="p5">&nbsp;</div>
+<div class="p5">&nbsp;</div>
+<div class="p5">Sub ContentSetDefaultParams Alias&nbsp; "ContentSetDefaultParams" ( _</div>
+<div class="p5">&nbsp;&nbsp; dps As ContentDefaultParamStruct) Export</div>
+<div class="p5">&nbsp;</div>
+<div class="p5">&nbsp;</div>
+<div class="p5">Sub ContentStopGetValue Alias&nbsp; "ContentStopGetValue" ( _</div>
+<div class="p5">&nbsp;&nbsp; FileName As Asciiz) Export</div>
+<div class="p5">&nbsp;</div>
+<div class="p5">&nbsp;</div>
+<div class="p5">Function ContentGetDefaultSortOrder Alias _</div>
+<div class="p5">&nbsp;&nbsp; "ContentGetDefaultSortOrder"&nbsp; ( _</div>
+<div class="p5">&nbsp;&nbsp; ByVal FieldIndex As Long) Export As Long</div>
+<div class="p5">&nbsp;</div>
+<div class="p5">&nbsp;</div>
+<div class="p5">Sub ContentPluginUnloading Alias&nbsp; "ContentPluginUnloading" () Export</div>
+<div class="p5">&nbsp;</div>
+<div class="p5">&nbsp;</div>
+<div class="p5">'-------------------------------------------------------------------------------</div>
+<div class="p5">' Main DLL entry point called by Windows...</div>
+<div class="p5">&nbsp;</div>
+<div class="p5">Function LibMain(ByVal hInstance As Long, _</div>
+<div class="p5">&nbsp;&nbsp; ByVal fwdReason As Long, ByVal lpvReserved As Long) As Long</div>
+<div class="p5">&nbsp;</div>
+<div class="p5">&nbsp;&nbsp; Function = 1</div>
+<div class="p5">&nbsp;</div>
+<div class="p5">End Function</div>
+<div class="p5">&nbsp;</div>
+<div class="p5">&nbsp;</div>
+<div class="p5">'-------------------------------------------------------------------------------</div>
+<div class="p2">
+</div>
+</BODY></HTML>

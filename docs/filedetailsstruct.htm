@@ -1,0 +1,38 @@
+<HTML><HEAD>
+<meta http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+	
+	<TITLE>FileDetailsStruct</TITLE>
+	
+	<META NAME="AUTHOR" CONTENT="Copyright ©2002-2019 Christian Ghisler">
+	<META NAME="GENERATOR" CONTENT="HelpScribble 7.8.0">
+<link href="ie.css" type="text/css" rel="stylesheet">
+<!--[if gte IE 5]>
+<style type="text/css">@import url(ie5+.css);</style>
+<![endif]-->
+</HEAD>
+<BODY>
+<div class="p1"><B>FileDetailsStruct</B></div>
+<div class="p2">&nbsp;</div>
+<div class="p2">FileDetailsStruct is passed to ContentCompareFiles to inform the plugin about the file details of the left and right file.</div>
+<div class="p2">&nbsp;</div>
+<div class="p2"><B>Declaration:</B></div>
+<div class="p2">&nbsp;</div>
+<div class="p2">typedef struct {</div>
+<div class="p2"><span class="s4">  </span>__int64 filesize1;</div>
+<div class="p2"><span class="s4">  </span>__int64 filesize2;</div>
+<div class="p2"><span class="s4">  </span>FILETIME filetime1;</div>
+<div class="p2"><span class="s4">  </span>FILETIME filetime2;</div>
+<div class="p2"><span class="s4">  </span>DWORD attr1;</div>
+<div class="p2"><span class="s4">  </span>DWORD attr2;</div>
+<div class="p2">} FileDetailsStruct;</div>
+<div class="p2">&nbsp;</div>
+<div class="p2"><B>Description of struct members:</B></div>
+<div class="p2">&nbsp;</div>
+<div class="p7"><span class="s5">filesize1,filesize2  </span>The size of the first/second file. If your compiler doesn't support 64-bit numbers, you can split these into 4 DWORD numbers: filesize1lo,filesize1hi,filesize2lo,filesize2hi;</div>
+<div class="p7">&nbsp;</div>
+<div class="p7"><span class="s5">filetime1,filetime2  </span>The last modification time stamp of the files, in standard Windows format</div>
+<div class="p7">&nbsp;</div>
+<div class="p7"><span class="s5">attr1,attr2  </span>File attributes of the two files. Besides the standard attributes archive, read only, hidden and system, only NTFS-compressed and NTFS-encrypted may be set.</div>
+<div class="p7">
+</div>
+</BODY></HTML>
