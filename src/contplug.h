@@ -1,4 +1,4 @@
-// Contents of file contplug.h version 2.10
+// Contents of file contplug.h version 2.12
 
 #define ft_nomorefields 0
 #define ft_numeric_32 1
