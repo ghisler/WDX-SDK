@@ -18,11 +18,13 @@
 <div class="p2">Total Commander will call the Unicode functions on all NT-based systems (Windows NT, 2000, XP) if they are present. If not, or on Windows 9x/ME, Total Commander will call the ANSI functions.</div>
 <div class="p2">&nbsp;</div>
 <div class="p2"><B>The following functions of the content plugin interface support Unicode:</B></div>
-<div class="p14">&nbsp;</div>
-<div class="p14"><A HREF="contentgetvalue.htm">ContentGetValue</A><span class="s12">W</span></div>
+<div class="p13">&nbsp;</div>
+<div class="p13"><A HREF="contentgetvalue.htm">ContentGetValue</A><span class="s12">W</span></div>
 <div class="p2"><A HREF="contentstopgetvalue.htm">ContentStopGetValue</A>W</div>
 <div class="p2"><A HREF="contentsetvalue.htm">ContentSetValue</A>W</div>
 <div class="p2"><A HREF="contentsendstateinformation.htm">ContentSendStateInformation</A>W</div>
+<div class="p2"><A HREF="hs2200.htm">ContentFindValue</A>W</div>
+<div class="p2"><A HREF="contentcomparefiles.htm">ContentCompareFiles</A>W</div>
 <div class="p2">&nbsp;</div>
 <div class="p2"><B>The following functions do not exist in a Unicode form and must be implemented as ANSI:</B></div>
 <div class="p2">&nbsp;</div>
@@ -32,7 +34,9 @@
 <div class="p2"><A HREF="contentsetdefaultparams.htm">ContentSetDefaultParams</A></div>
 <div class="p2"><A HREF="contentgetdefaultsortorder.htm">ContentGetDefaultSortOrder</A></div>
 <div class="p2"><A HREF="contenteditvalue.htm">ContentEditValue</A></div>
+<div class="p2"><A HREF="contentstopgetvalue.htm">ContentStopGetValue</A></div>
 <div class="p2"><A HREF="contentpluginunloading.htm">ContentPluginUnloading</A></div>
+<div class="p2"><A HREF="hs2210.htm">ContentGetSupportedOperators</A></div>
 <div class="p2">&nbsp;</div>
 <div class="p2"><B>What's the easiest way to support Unicode in an existing plugin?</B></div>
 <div class="p2">&nbsp;</div>
@@ -58,17 +62,17 @@
 <div class="p2"><B>1. </B>Replace all string references like char* and LPSTR by TCHAR*</div>
 <div class="p2"><B>2. </B>Replace all string handing functions like strchr or strcpy by _tcschr and _tcscpy</div>
 <div class="p2"><B>3. </B>Put TEXT() around all string constants</div>
-<div class="p15"><B>4. </B>Make a copy of the current project within the same project map. Add the UNICODE and _UNICODE defines in the compiler settings of the Unicode project</div>
+<div class="p14"><B>4. </B>Make a copy of the current project within the same project map. Add the UNICODE and _UNICODE defines in the compiler settings of the Unicode project</div>
 <div class="p2"><B>5. </B>Remove the .def file from the Unicode project. Create a new .def file, where the functions are defined as follows:</div>
-<div class="p16">ContentGetValueW=ContentGetValue</div>
-<div class="p16">ContentStopGetValueW=ContentStopGetValue</div>
-<div class="p16">ContentGetDetectString</div>
-<div class="p16">...</div>
-<div class="p16">Note the difference between Unicode and non-Unicode functions (see list above which are Unicode)</div>
+<div class="p15">ContentGetValueW=ContentGetValue</div>
+<div class="p15">ContentStopGetValueW=ContentStopGetValue</div>
+<div class="p15">ContentGetDetectString</div>
+<div class="p15">...</div>
+<div class="p15">Note the difference between Unicode and non-Unicode functions (see list above which are Unicode)</div>
 <div class="p2"><B>6. </B>Set the output file to the name &lt;pluginname&gt;.uwdx, in the same directory as the .wdx file from the first project</div>
-<div class="p15">&nbsp;</div>
-<div class="p15">Total Commander will try to load a .uwdx file with the same name as the .wdx file on Unicode systems (Win NT, 2000, XP, Vista, 7).</div>
-<div class="p15">&nbsp;</div>
+<div class="p14">&nbsp;</div>
+<div class="p14">Total Commander will try to load a .uwdx file with the same name as the .wdx file on Unicode systems (Win NT, 2000, XP, Vista, 7).</div>
+<div class="p14">&nbsp;</div>
 <div class="p2"><B>Note: </B>You cannot have just the .uwdx plugin if you want to create a Unicode-only plugin! Instead, create a combined Unicode/ANSI plugin, where the ANSI functions are just empty functions returning an error.</div>
 <div class="p2">
 </div>

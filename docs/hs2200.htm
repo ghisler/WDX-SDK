@@ -1,0 +1,81 @@
+<HTML><HEAD>
+<meta http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+	
+	<TITLE>ContentFindValue</TITLE>
+	<META NAME="AUTHOR" CONTENT="Copyright ©2002-2019 Christian Ghisler">
+	<META NAME="GENERATOR" CONTENT="HelpScribble 7.8.0">
+<link href="ie.css" type="text/css" rel="stylesheet">
+<!--[if gte IE 5]>
+<style type="text/css">@import url(ie5+.css);</style>
+<![endif]-->
+</HEAD>
+<BODY>
+<div class="p1"><B>ContentFindValue</B></div>
+<div class="p2">&nbsp;</div>
+<div class="p2">ContentFindValue is called to search directly for a specific search string. This function is new since Total Commander 10, plugin interface version 2.12.</div>
+<div class="p2">Normally Total Commander would just call ContentGetValue and compare the returned value by itself with the search string. However, by returning the new flag contflags_fieldsearch, it's possible to tell Total Commander to call this function instead for specific fields. This can be useful e.g. for passing a search string directly to a search database. ContentGetSupportedOperators can be called to define your own search operators instead of the default like "contains".</div>
+<div class="p2">&nbsp;</div>
+<div class="p2"><B>Declaration:</B></div>
+<div class="p4">&nbsp;</div>
+<div class="p4">int __stdcall ContentFindValue(char* FileName, int FieldIndex, int UnitIndex, int OperationIndex, int FieldType, int flags, void* FieldValue);</div>
+<div class="p2">&nbsp;</div>
+<div class="p2"><B>Description of parameters:</B></div>
+<div class="p2">&nbsp;</div>
+<div class="p5"><span class="s3">FileName  </span>The name of the file for which to do the search.</div>
+<div class="p5">&nbsp;</div>
+<div class="p5"><span class="s3">FieldIndex  </span>The index of the field for which to do the search. This is the same index as the FieldIndex value in ContentGetSupportedField.</div>
+<div class="p5">&nbsp;</div>
+<div class="p5"><span class="s3">UnitIndex  </span>The index of the unit used. <B>Example:</B></div>
+<div class="p5"><span class="s3">  </span>If the plugin returned the following unit string in ContentGetSupportedField:</div>
+<div class="p5"><span class="s3">  </span>bytes|kbytes|Mbytes</div>
+<div class="p5"><span class="s3">  </span>Then a UnitIndex of 0 would mean bytes, 1 means kbytes and 2 means MBytes</div>
+<div class="p5"><span class="s3">  </span>If no unit string was returned, UnitIndex is 0.</div>
+<div class="p5">&nbsp;</div>
+<div class="p5"><span class="s3">OperationIndex  </span>The index of the operation as displayed in the "OP" column in Total Commander search function. If you use ContentGetSupportedOperators, you will get back the index of the operator chosen by the user from that list. Otherwise the index depends on the FieldType. The default operators are:</div>
+<div class="p5"><span class="s3">  </span>ft_numeric_32,ft_numeric_64,ft_numeric_floating,ft_datetime,ft_date,ft_time:</div>
+<div class="p5"><span class="s3"> &nbsp;</span>&nbsp;&nbsp; &gt;&nbsp; &lt;&nbsp; &gt;=&nbsp; &lt;=&nbsp; =&nbsp; !=</div>
+<div class="p5"><span class="s3">  </span>ft_boolean:</div>
+<div class="p5"><span class="s3"> &nbsp;</span>&nbsp;&nbsp; =</div>
+<div class="p5"><span class="s3">  </span>ft_multiplechoice</div>
+<div class="p5"><span class="s3"> &nbsp;</span>&nbsp;&nbsp; =&nbsp; !=</div>
+<div class="p5"><span class="s3">  </span>ft_string, ft_stringw:</div>
+<div class="p5"><span class="s3"> &nbsp;</span>&nbsp;&nbsp; contains&nbsp; !contains&nbsp; cont.(case)&nbsp; !cont.(case)&nbsp; =&nbsp; !=&nbsp; =(case)&nbsp; !=(case)&nbsp; regex&nbsp; !regex</div>
+<div class="p5"><span class="s3">  </span>ft_fulltext, ft_fulltextw</div>
+<div class="p5"><span class="s3"> &nbsp;</span>&nbsp;&nbsp; contains&nbsp; !contains&nbsp; cont.(case)&nbsp; !cont.(case)&nbsp; regex&nbsp; !regex&nbsp;&nbsp;&nbsp;</div>
+<div class="p5">&nbsp;</div>
+<div class="p5"><span class="s3">FieldType  </span>The type of data sent to the plugin in FieldValue</div>
+<div class="p5">&nbsp;</div>
+<div class="p5"><span class="s3">flags  </span>Currently only one flag is defined:</div>
+<div class="p5"><span class="s3">  </span>CONTENT_DELAYIFSLOW: If this flag is set, the plugin should return ft_delayed for fields which take a long time to extract, like file version information. Total Commander will then call the function again in a background thread without the CONTENT_DELAYIFSLOW flag. This means that your plugin must be implemented thread-safe if you plan to return ft_delayed.</div>
+<div class="p5">&nbsp;</div>
+<div class="p5"><span class="s3">FieldValue  </span>Here the plugin gets the search criteria. The data format depends on the field type:</div>
+<div class="p5"><span class="s3">  </span>ft_numeric_32: FieldValue points to a 32-bit signed integer variable.</div>
+<div class="p5"><span class="s3">  </span>ft_numeric_64: FieldValue points to a 64-bit signed integer variable.</div>
+<div class="p5"><span class="s3">  </span>ft_numeric_floating: FieldValue points to a 64-bit floating point variable (ISO standard double precision)</div>
+<div class="p5"><span class="s3">  </span>See remark below about additional string field!</div>
+<div class="p5"><span class="s3">  </span>ft_date: FieldValue points to a structure containing year,month,day as 2 byte values.</div>
+<div class="p5"><span class="s3">  </span>ft_time: FieldValue points to a structure containing hour,minute,second as 2 byte values.</div>
+<div class="p5"><span class="s3">  </span>ft_boolean: FieldValue points to a 32-bit number. 0 means false, anything else means true.</div>
+<div class="p5"><span class="s3">  </span>ft_string: FieldValue points to a single pointer pointing to a 0-terminated string.</div>
+<div class="p5"><span class="s3">  </span>ft_stringw,</div>
+<div class="p5"><span class="s3">  </span>ft_fulltext,</div>
+<div class="p5"><span class="s3">  </span>ft_fulltextw: FieldValue is a pointer to 2 separate pointers: The first points to a 0 terminated ANSI string, the second to a 0 terminated Unicode string. Behind it follows a BOOL value telling the user whether the Unicode string contains any characters which cannot be represented by the ANSI string.</div>
+<div class="p5"><span class="s3">  </span>ft_multiplechoice: FieldValue is a pointer to a 0-terminated ANSI string.</div>
+<div class="p5"><span class="s3">  </span>ft_datetime: A timestamp of type FILETIME, as returned e.g. by FindFirstFile(). It is a 64-bit value representing the number of 100-nanosecond intervals since January 1, 1601. The time MUST be relative to universal time (Greenwich mean time) as returned by the file system, not local time!</div>
+<div class="p5">&nbsp;</div>
+<div class="p5"><B>Return value:</B></div>
+<div class="p5">&nbsp;</div>
+<div class="p5">Return the field type in case of success, or one of the following error values otherwise:</div>
+<div class="p5"><span class="s3">ft_found  </span>The search string was found</div>
+<div class="p5"><span class="s3">ft_notfound  </span>The search string was NOT found</div>
+<div class="p5"><span class="s3">ft_nosuchfield  </span>The given FieldIndex is invalid</div>
+<div class="p5"><span class="s3">ft_fileerror  </span>Error accessing the specified file FileName</div>
+<div class="p5"><span class="s3">ft_fieldempty  </span>The file does not contain the specified field</div>
+<div class="p5"><span class="s3">ft_delayed  </span>The extraction of the field would take a long time, so Total Commander should request it again in a background thread. This error may only be returned if the flag CONTENT_DELAYIFSLOW was set, and if the plugin is thread-safe.</div>
+<div class="p5">&nbsp;</div>
+<div class="p5"><B>Remarks:</B></div>
+<div class="p5">&nbsp;</div>
+<div class="p2"><B>Note about Unicode:</B> ft_stringw, ft_fulltext and ft_fulltextw always pass two pointers to the search function, the first pointing to the ANSI search string, the second to the Unicode search string. It is recommended to&nbsp;</div>
+<div class="p2">
+</div>
+</BODY></HTML>

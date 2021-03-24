@@ -1,0 +1,38 @@
+<HTML><HEAD>
+<meta http-equiv=Content-Type content="text/html; charset=iso-8859-1">
+	
+	<TITLE>ContentGetSupportedOperators
+</TITLE>
+	<META NAME="AUTHOR" CONTENT="Copyright ©2002-2019 Christian Ghisler">
+	<META NAME="GENERATOR" CONTENT="HelpScribble 7.8.0">
+<link href="ie.css" type="text/css" rel="stylesheet">
+<!--[if gte IE 5]>
+<style type="text/css">@import url(ie5+.css);</style>
+<![endif]-->
+</HEAD>
+<BODY>
+<div class="p1"><B>ContentGetSupportedOperators</B></div>
+<div class="p2">&nbsp;</div>
+<div class="p2">ContentGetSupportedOperators is called to return a list of supported operators like "contains" or "=". This function is only called when the flag contflags_fieldsearch was returned for a field. This function is new since Total Commander 10, plugin interface version 2.12.</div>
+<div class="p2">&nbsp;</div>
+<div class="p2"><B>Declaration:</B></div>
+<div class="p4">&nbsp;</div>
+<div class="p4">int __stdcall ContentGetSupportedOperators(int FieldIndex, char* FieldOperators, int maxlen);</div>
+<div class="p2">&nbsp;</div>
+<div class="p2"><B>Description of parameters:</B></div>
+<div class="p2">&nbsp;</div>
+<div class="p5"><span class="s3">FieldIndex  </span>The index of the field for which TC requests information. Starting with 0, the FieldIndex is increased until the plugin returns an error.</div>
+<div class="p5">&nbsp;</div>
+<div class="p5"><span class="s3">FieldOperators  </span>Return a list of supported operators here, in English, separated by spaces. Operators using the default names like "contains" will be translated with internal Total Commander strings, otherwise via plugin language file. The operators must NOT contain any spaces, and need to be returned as a string separated by spaces, e.g.</div>
+<div class="p5"><span class="s3">  </span>contains !contains = !=</div>
+<div class="p5">&nbsp;</div>
+<div class="p5"><span class="s3">maxlen  </span>The maximum number of characters, including the trailing 0, which may be returned in FieldOperators.</div>
+<div class="p5">&nbsp;</div>
+<div class="p5"><B>Return value:</B></div>
+<div class="p5">&nbsp;</div>
+<div class="p2">The function needs to return the number of operators, or 0 if not supported.</div>
+<div class="p2">&nbsp;</div>
+<div class="p2">Note: This function is only available as Ansi, not Unicode.
+
+</div>
+</BODY></HTML>

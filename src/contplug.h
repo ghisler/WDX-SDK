@@ -24,6 +24,9 @@
 #define ft_notsupported -5  // function not supported
 #define ft_setcancel -6     // user clicked cancel in field editor
 #define ft_delayed 0        // field takes a long time to extract -> try again in background
+// for ContentFindValue:
+#define ft_found 1          // Value was found
+#define ft_notfound -8      // Value was NOT found
 
 // for ContentSetValue
 #define ft_setsuccess 0     // setting of the attribute succeeded
@@ -39,6 +42,8 @@
 #define contflags_passthrough_size_float 14
 #define contflags_substmask 14
 #define contflags_fieldedit 16
+#define contflags_fieldsearch 32
+#define contflags_searchpageonly 64
 
 #define contst_readnewdir 1
 #define contst_refreshpressed 2
@@ -106,3 +111,6 @@ int __stdcall ContentCompareFiles(PROGRESSCALLBACKPROC progresscallback,
   int compareindex,char* filename1,char* filename2,FileDetailsStruct* filedetails);
 int __stdcall ContentCompareFilesW(PROGRESSCALLBACKPROC progresscallback,
   int compareindex,WCHAR* filename1,WCHAR* filename2,FileDetailsStruct* filedetails);
+int __stdcall ContentFindValue(char* FileName, int FieldIndex, int UnitIndex, int OperationIndex, int FieldType, int flags, void* FieldValue);
+int __stdcall ContentFindValueW(WCHAR* FileName, int FieldIndex, int UnitIndex, int OperationIndex, int FieldType, int flags, void* FieldValue);
+int __stdcall ContentGetSupportedOperators(int FieldIndex, char* FieldOperators, int maxlen);

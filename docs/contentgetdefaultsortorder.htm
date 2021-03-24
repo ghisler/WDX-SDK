@@ -16,17 +16,17 @@
 <div class="p2">ContentGetDefaultSortOrder is called when the user clicks on the sorting header above the columns.</div>
 <div class="p2">&nbsp;</div>
 <div class="p2"><B>Declaration:</B></div>
-<div class="p5">&nbsp;</div>
-<div class="p5">int __stdcall ContentGetDefaultSortOrder(int FieldIndex);</div>
+<div class="p4">&nbsp;</div>
+<div class="p4">int __stdcall ContentGetDefaultSortOrder(int FieldIndex);</div>
 <div class="p2">&nbsp;</div>
 <div class="p2"><B>Description of parameters:</B></div>
+<div class="p4">&nbsp;</div>
+<div class="p5"><span class="s6">FieldIndex  </span>The index of the field for which the sort order should be returned.</div>
 <div class="p5">&nbsp;</div>
-<div class="p6"><span class="s6">FieldIndex  </span>The index of the field for which the sort order should be returned.</div>
-<div class="p6">&nbsp;</div>
-<div class="p6"><B>Return value:</B></div>
+<div class="p5"><B>Return value:</B></div>
 <div class="p2">&nbsp;</div>
 <div class="p2">Return 1 for ascending (a..z, 1..9), or -1 for descending (z..a, 9..0).</div>
-<div class="p6">&nbsp;</div>
+<div class="p5">&nbsp;</div>
 <div class="p2"><B>Note:</B></div>
 <div class="p2">&nbsp;</div>
 <div class="p2">You may implement this function if there are fields which are usually sorted in descending order, like the size field (largest file first) or the date/time fields (newest first). If the function isn't implemented, ascending will be the default.</div>

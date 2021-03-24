@@ -11,44 +11,46 @@
 <![endif]-->
 </HEAD>
 <BODY>
-<div class="p1"><B>Writing content plugins (version 2.11) for Total Commander</B></div>
-<div class="p11">&nbsp;</div>
-<div class="p11"><B>1. <A HREF="overview.htm">Overview</B></A></div>
-<div class="p11"><B>2. Functions</B></div>
-<div class="p12"><B>a) Mandatory (must be implemented)</B></div>
-<div class="p12"><A HREF="contentgetsupportedfield.htm">ContentGetSupportedField</A></div>
-<div class="p12"><A HREF="contentgetvalue.htm">ContentGetValue</A></div>
-<div class="p12"><B>b) Optional (must NOT be implemented if unsupported!)</B></div>
-<div class="p12"><A HREF="contentgetdetectstring.htm">ContentGetDetectString</A></div>
-<div class="p12"><A HREF="contentsetdefaultparams.htm">ContentSetDefaultParams</A></div>
-<div class="p12"><A HREF="contentstopgetvalue.htm">ContentStopGetValue</A></div>
-<div class="p12"><A HREF="contentgetdefaultsortorder.htm">ContentGetDefaultSortOrder</A></div>
-<div class="p12"><A HREF="contentpluginunloading.htm">ContentPluginUnloading</A></div>
-<div class="p12"><A HREF="contentgetsupportedfieldflags.htm">ContentGetSupportedFieldFlags</A></div>
-<div class="p12"><A HREF="contentsetvalue.htm">ContentSetValue</A></div>
-<div class="p12"><A HREF="contenteditvalue.htm">ContentEditValue</A></div>
-<div class="p12"><A HREF="contentsendstateinformation.htm">ContentSendStateInformation</A></div>
-<div class="p12"><A HREF="contentcomparefiles.htm">ContentCompareFiles</A></div>
-<div class="p11"><B>3. Structures</B></div>
-<div class="p12"><A HREF="pdateformat.htm">pdateformat</A></div>
-<div class="p12"><A HREF="ptimeformat.htm">ptimeformat</A></div>
-<div class="p12"><A HREF="contentdefaultparamstruct.htm">ContentDefaultParamStruct</A></div>
-<div class="p12"><A HREF="filedetailsstruct.htm">FileDetailsStruct</A></div>
-<div class="p11"><B>4. Callbacks</B></div>
-<div class="p12"><A HREF="progresscallbackproc.htm">PROGRESSCALLBACKPROC</A></div>
-<div class="p11"><B>5. <A HREF="unicode_support.htm">Unicode support</B></A></div>
-<div class="p11"><B>6. <A HREF="64_bit_support.htm">64-bit support</B></A></div>
-<div class="p11"><B>7. Header files</B></div>
-<div class="p12"><A HREF="contplug.h.htm">contplug.h</A> (C/C++)</div>
-<div class="p12"><A HREF="contplug.pas.htm">contplug.pas</A> (Delphi)</div>
-<div class="p12"><A HREF="powerbasic_sample.htm">PowerBasic sample</A> (by user "Shura")</div>
-<div class="p11"><B>8. Translations</B></div>
-<div class="p12"><A HREF="lng_files_for_content_plugins.htm">Lng files for content plugins</A></div>
-<div class="p11"><B>9. Plugin interface changes</B></div>
-<div class="p12"><A HREF="changelog.htm">Changelog</A></div>
+<div class="p1"><B>Writing content plugins (version 2.12) for Total Commander</B></div>
+<div class="p10">&nbsp;</div>
+<div class="p10"><B>1. <A HREF="overview.htm">Overview</B></A></div>
+<div class="p10"><B>2. Functions</B></div>
+<div class="p11"><B>a) Mandatory (must be implemented)</B></div>
+<div class="p11"><A HREF="contentgetsupportedfield.htm">ContentGetSupportedField</A></div>
+<div class="p11"><A HREF="contentgetvalue.htm">ContentGetValue</A></div>
+<div class="p11"><B>b) Optional (must NOT be implemented if unsupported!)</B></div>
+<div class="p11"><A HREF="contentgetdetectstring.htm">ContentGetDetectString</A></div>
+<div class="p11"><A HREF="contentsetdefaultparams.htm">ContentSetDefaultParams</A></div>
+<div class="p11"><A HREF="contentstopgetvalue.htm">ContentStopGetValue</A></div>
+<div class="p11"><A HREF="contentgetdefaultsortorder.htm">ContentGetDefaultSortOrder</A></div>
+<div class="p11"><A HREF="contentpluginunloading.htm">ContentPluginUnloading</A></div>
+<div class="p11"><A HREF="contentgetsupportedfieldflags.htm">ContentGetSupportedFieldFlags</A></div>
+<div class="p11"><A HREF="contentsetvalue.htm">ContentSetValue</A></div>
+<div class="p11"><A HREF="contenteditvalue.htm">ContentEditValue</A></div>
+<div class="p11"><A HREF="contentsendstateinformation.htm">ContentSendStateInformation</A></div>
+<div class="p11"><A HREF="contentcomparefiles.htm">ContentCompareFiles</A></div>
+<div class="p11"><A HREF="hs2200.htm">ContentFindValue</A></div>
+<div class="p11"><A HREF="hs2210.htm">ContentGetSupportedOperators</A></div>
+<div class="p10"><B>3. Structures</B></div>
+<div class="p11"><A HREF="pdateformat.htm">pdateformat</A></div>
+<div class="p11"><A HREF="ptimeformat.htm">ptimeformat</A></div>
+<div class="p11"><A HREF="contentdefaultparamstruct.htm">ContentDefaultParamStruct</A></div>
+<div class="p11"><A HREF="filedetailsstruct.htm">FileDetailsStruct</A></div>
+<div class="p10"><B>4. Callbacks</B></div>
+<div class="p11"><A HREF="progresscallbackproc.htm">PROGRESSCALLBACKPROC</A></div>
+<div class="p10"><B>5. <A HREF="unicode_support.htm">Unicode support</B></A></div>
+<div class="p10"><B>6. <A HREF="64_bit_support.htm">64-bit support</B></A></div>
+<div class="p10"><B>7. Header files</B></div>
+<div class="p11"><A HREF="contplug.h.htm">contplug.h</A> (C/C++)</div>
+<div class="p11"><A HREF="contplug.pas.htm">contplug.pas</A> (Delphi)</div>
+<div class="p11"><A HREF="powerbasic_sample.htm">PowerBasic sample</A> (by user "Shura")</div>
+<div class="p10"><B>8. Translations</B></div>
+<div class="p11"><A HREF="lng_files_for_content_plugins.htm">Lng files for content plugins</A></div>
+<div class="p10"><B>9. Plugin interface changes</B></div>
+<div class="p11"><A HREF="changelog.htm">Changelog</A></div>
 <div class="p2">&nbsp;</div>
-<div class="p2">Copyright (C) 2005-2018 Christian Ghisler, Ghisler Software GmbH All Rights Reserved</div>
-<div class="p11">&nbsp;</div>
+<div class="p2">Copyright (C) 2005-2021 Christian Ghisler, Ghisler Software GmbH All Rights Reserved</div>
+<div class="p10">&nbsp;</div>
 <div class="p2">
 </div>
 </BODY></HTML>

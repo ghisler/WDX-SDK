@@ -15,42 +15,45 @@
 <div class="p2">&nbsp;</div>
 <div class="p2">This list shows recent changes to the lister plugin interface:</div>
 <div class="p2">&nbsp;</div>
-<div class="p4"><span class="s1">2019.01.11  </span>Minor bugfixes</div>
-<div class="p4"><span class="s1">2019.01.03  </span>Conversion from HLP to CHM format</div>
-<div class="p4"><span class="s1">2016.05.08  </span>Release specifications version 2.11</div>
-<div class="p4"><span class="s1">2016.05.08  </span>Plugin detect string now supports wildcards ? (one character) and * (any number of characters)</div>
-<div class="p4"><span class="s1">2016.05.08  </span>New type ft_fulltextw added</div>
-<div class="p4"><span class="s1">2014.09.16  </span>Re-release version 2.10 with some typos corrected</div>
-<div class="p4"><span class="s1">2011.09.07  </span>Release specifications version 2.10 second edition (TC 8.0) - no version number change since the functions are the same</div>
-<div class="p4"><span class="s1">2011.08.23  </span>Added Information about porting to 64-bit (no modifications to plugin interface)</div>
-<div class="p4"><span class="s1">2010.07.23  </span>Release content plugin interface version 2.10 final (Total Commander 7.55)</div>
-<div class="p4"><span class="s1">2010.07.23  </span>Cleanup of Delphi interface by user "Alex"</div>
-<div class="p4"><span class="s1">2010.01.27  </span>Release content plugin interface version 2.10 beta 2 (Total Commander 7.51 beta 2)</div>
-<div class="p4"><span class="s1">2010.01.27  </span>ContentCompareFiles can now return a custom icon index for the case of equal files</div>
-<div class="p4"><span class="s1">2010.01.06  </span>Release content plugin interface version 2.10 beta 1 (Total Commander 7.51 beta 1)</div>
-<div class="p4"><span class="s1">2010.01.06  </span>New function <A HREF="contentcomparefiles.htm">ContentCompareFiles</A> used in "Synchronize dirs" to compare two files by a custom method</div>
-<div class="p4"><span class="s1">2009.04.27  </span>Reminder that ft_multiplechoice fields are always ANSI, not Unicode</div>
-<div class="p4"><span class="s1">2008.09.21  </span>Release content plugin interface version 2.0 (Total Commander 7.50)</div>
-<div class="p4"><span class="s1">2007.10.14  </span>Unicode support in content plugins: file names and values only</div>
-<div class="p4"><span class="s1">2006.08.24  </span>Release content plugin interface version 1.5</div>
-<div class="p4"><span class="s1">2006.08.24  </span>Added new function <A HREF="contenteditvalue.htm">ContentEditValue</A></div>
-<div class="p4"><span class="s1">2006.03.29  </span>Added new function <A HREF="contentsendstateinformation.htm">ContentSendStateInformation</A></div>
-<div class="p4"><span class="s1">2005.11.21  </span>Added <A HREF="contentgetsupportedfieldflags.htm">ContentGetSupportedFieldFlags</A> and <A HREF="contentsetvalue.htm">ContentSetValue</A> functions</div>
-<div class="p4"><span class="s1">2005.05.24  </span>Added PowerBasic sample file</div>
-<div class="p4"><span class="s1">2005.05.24  </span>Documented that fields of type ft_fulltext MUST be the last fields in the field list</div>
-<div class="p4"><span class="s1">2005.04.13  </span>Release content plugin interface version 1.4 (reported as <A HREF="contentdefaultparamstruct.htm">PluginInterfaceVersionHi</A>=1, Low=4)</div>
-<div class="p4"><span class="s1">2005.04.13  </span><A HREF="contentgetvalue.htm">ContentGetValue</A> can now return a string value when reporting ft_delayed or ft_ondemand, which will be shown until the actual value has been extracted</div>
-<div class="p4"><span class="s1">2005.04.13  </span><A HREF="contentgetvalue.htm">ContentGetValue</A> can now return a string value in addition to a number for the ft_numeric_floating value</div>
-<div class="p4"><span class="s1">2005.02.23  </span>Release content plugin interface version 1.3</div>
-<div class="p4"><span class="s1">2004.02.23  </span>Total Commander now accepts that <A HREF="contentgetvalue.htm">ContentGetValue</A> returns a different data type than <A HREF="contentgetsupportedfield.htm">ContentGetSupportedField</A> for the same field, e.g. a string "no value" instead of a numeric field.</div>
-<div class="p4"><span class="s1">2004.02.23  </span>Added new function <A HREF="contentpluginunloading.htm">ContentPluginUnloading</A> by request from a user</div>
-<div class="p4"><span class="s1">2004.12.08  </span>Release content plugin interface version 1.2</div>
-<div class="p4"><span class="s1">2004.12.08  </span>Added new function <A HREF="contentgetdefaultsortorder.htm">ContentGetDefaultSortOrder</A> for sorting of columns (ascending or descending)</div>
-<div class="p4"><span class="s1">2004.12.08  </span>Added ft_datetime field</div>
-<div class="p4"><span class="s1">2004.11.24  </span>Release content plugin interface version 1.1</div>
-<div class="p4"><span class="s1">2004.11.24  </span>Added new function <A HREF="contentstopgetvalue.htm">ContentStopGetValue</A> to abort the extraction of a field</div>
-<div class="p4"><span class="s1">2004.11.24  </span>Added new return value ft_ondemand for very slow fields</div>
-<div class="p4"><span class="s1">2004.09.27  </span>Release content plugin interface version 1.0</div>
-<div class="p4">
+<div class="p3"><span class="s1">2021.03.02  </span>Release specifications version 2.12</div>
+<div class="p3"><span class="s1">2021.03.01  </span>Added new functions ContentFindValue and ContentGetSupportedOperators</div>
+<div class="p3"><span class="s1">2021.03.01  </span>Added new fields contflags_fieldsearch and contflags_searchpageonly</div>
+<div class="p3"><span class="s1">2019.01.11  </span>Minor bugfixes</div>
+<div class="p3"><span class="s1">2019.01.03  </span>Conversion from HLP to CHM format</div>
+<div class="p3"><span class="s1">2016.05.08  </span>Release specifications version 2.11</div>
+<div class="p3"><span class="s1">2016.05.08  </span>Plugin detect string now supports wildcards ? (one character) and * (any number of characters)</div>
+<div class="p3"><span class="s1">2016.05.08  </span>New type ft_fulltextw added</div>
+<div class="p3"><span class="s1">2014.09.16  </span>Re-release version 2.10 with some typos corrected</div>
+<div class="p3"><span class="s1">2011.09.07  </span>Release specifications version 2.10 second edition (TC 8.0) - no version number change since the functions are the same</div>
+<div class="p3"><span class="s1">2011.08.23  </span>Added Information about porting to 64-bit (no modifications to plugin interface)</div>
+<div class="p3"><span class="s1">2010.07.23  </span>Release content plugin interface version 2.10 final (Total Commander 7.55)</div>
+<div class="p3"><span class="s1">2010.07.23  </span>Cleanup of Delphi interface by user "Alex"</div>
+<div class="p3"><span class="s1">2010.01.27  </span>Release content plugin interface version 2.10 beta 2 (Total Commander 7.51 beta 2)</div>
+<div class="p3"><span class="s1">2010.01.27  </span>ContentCompareFiles can now return a custom icon index for the case of equal files</div>
+<div class="p3"><span class="s1">2010.01.06  </span>Release content plugin interface version 2.10 beta 1 (Total Commander 7.51 beta 1)</div>
+<div class="p3"><span class="s1">2010.01.06  </span>New function <A HREF="contentcomparefiles.htm">ContentCompareFiles</A> used in "Synchronize dirs" to compare two files by a custom method</div>
+<div class="p3"><span class="s1">2009.04.27  </span>Reminder that ft_multiplechoice fields are always ANSI, not Unicode</div>
+<div class="p3"><span class="s1">2008.09.21  </span>Release content plugin interface version 2.0 (Total Commander 7.50)</div>
+<div class="p3"><span class="s1">2007.10.14  </span>Unicode support in content plugins: file names and values only</div>
+<div class="p3"><span class="s1">2006.08.24  </span>Release content plugin interface version 1.5</div>
+<div class="p3"><span class="s1">2006.08.24  </span>Added new function <A HREF="contenteditvalue.htm">ContentEditValue</A></div>
+<div class="p3"><span class="s1">2006.03.29  </span>Added new function <A HREF="contentsendstateinformation.htm">ContentSendStateInformation</A></div>
+<div class="p3"><span class="s1">2005.11.21  </span>Added <A HREF="contentgetsupportedfieldflags.htm">ContentGetSupportedFieldFlags</A> and <A HREF="contentsetvalue.htm">ContentSetValue</A> functions</div>
+<div class="p3"><span class="s1">2005.05.24  </span>Added PowerBasic sample file</div>
+<div class="p3"><span class="s1">2005.05.24  </span>Documented that fields of type ft_fulltext MUST be the last fields in the field list</div>
+<div class="p3"><span class="s1">2005.04.13  </span>Release content plugin interface version 1.4 (reported as <A HREF="contentdefaultparamstruct.htm">PluginInterfaceVersionHi</A>=1, Low=4)</div>
+<div class="p3"><span class="s1">2005.04.13  </span><A HREF="contentgetvalue.htm">ContentGetValue</A> can now return a string value when reporting ft_delayed or ft_ondemand, which will be shown until the actual value has been extracted</div>
+<div class="p3"><span class="s1">2005.04.13  </span><A HREF="contentgetvalue.htm">ContentGetValue</A> can now return a string value in addition to a number for the ft_numeric_floating value</div>
+<div class="p3"><span class="s1">2005.02.23  </span>Release content plugin interface version 1.3</div>
+<div class="p3"><span class="s1">2004.02.23  </span>Total Commander now accepts that <A HREF="contentgetvalue.htm">ContentGetValue</A> returns a different data type than <A HREF="contentgetsupportedfield.htm">ContentGetSupportedField</A> for the same field, e.g. a string "no value" instead of a numeric field.</div>
+<div class="p3"><span class="s1">2004.02.23  </span>Added new function <A HREF="contentpluginunloading.htm">ContentPluginUnloading</A> by request from a user</div>
+<div class="p3"><span class="s1">2004.12.08  </span>Release content plugin interface version 1.2</div>
+<div class="p3"><span class="s1">2004.12.08  </span>Added new function <A HREF="contentgetdefaultsortorder.htm">ContentGetDefaultSortOrder</A> for sorting of columns (ascending or descending)</div>
+<div class="p3"><span class="s1">2004.12.08  </span>Added ft_datetime field</div>
+<div class="p3"><span class="s1">2004.11.24  </span>Release content plugin interface version 1.1</div>
+<div class="p3"><span class="s1">2004.11.24  </span>Added new function <A HREF="contentstopgetvalue.htm">ContentStopGetValue</A> to abort the extraction of a field</div>
+<div class="p3"><span class="s1">2004.11.24  </span>Added new return value ft_ondemand for very slow fields</div>
+<div class="p3"><span class="s1">2004.09.27  </span>Release content plugin interface version 1.0</div>
+<div class="p3">
 </div>
 </BODY></HTML>

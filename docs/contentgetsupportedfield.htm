@@ -16,43 +16,43 @@
 <div class="p2">ContentGetSupportedField is called to enumerate all supported fields. FieldIndex is increased by 1 starting from 0 until the plugin returns ft_nomorefields.</div>
 <div class="p2">&nbsp;</div>
 <div class="p2"><B>Declaration:</B></div>
-<div class="p5">&nbsp;</div>
-<div class="p5">int __stdcall ContentGetSupportedField(int FieldIndex, char* FieldName, char* Units, int maxlen);</div>
+<div class="p4">&nbsp;</div>
+<div class="p4">int __stdcall ContentGetSupportedField(int FieldIndex, char* FieldName, char* Units, int maxlen);</div>
 <div class="p2">&nbsp;</div>
 <div class="p2"><B>Description of parameters:</B></div>
 <div class="p2">&nbsp;</div>
-<div class="p6"><span class="s3">FieldIndex  </span>The index of the field for which TC requests information. Starting with 0, the FieldIndex is increased until the plugin returns an error.</div>
-<div class="p6">&nbsp;</div>
-<div class="p6"><span class="s3">FieldName  </span>Here the plugin has to return the name of the field with index FieldIndex. The field may not contain the following chars: . (dot) | (vertical line) : (colon). You may return a maximum of maxlen characters, including the trailing 0.</div>
-<div class="p6">&nbsp;</div>
-<div class="p6"><span class="s3">Units  </span>When a field supports several units like bytes, kbytes, Mbytes etc, they need to be specified here in the following form: bytes|kbytes|Mbytes . The separator is the vertical dash (Alt+0124). As field names, unit names may not contain a vertical dash, a dot, or a colon. You may return a maximum of maxlen characters, including the trailing 0.</div>
-<div class="p6"><span class="s3">  </span>If the field type is <B>ft_multiplechoice</B>, the plugin needs to return all possible values here. <B>Example:</B> The field "File Type" of the built-in content plugin can have the values "File", "Folder" and "Reparse point". The available choices need to be returned in the following form: File|Folder|Reparse point . The same separator is used as for Units. You may return a maximum of maxlen characters, including the trailing 0. The field type ft_multiplechoice does NOT support any units.</div>
-<div class="p6">&nbsp;</div>
-<div class="p6"><span class="s3">maxlen  </span>The maximum number of characters, including the trailing 0, which may be returned in each of the fields.</div>
-<div class="p6">&nbsp;</div>
-<div class="p6"><B>Return value:</B></div>
-<div class="p6">&nbsp;</div>
-<div class="p6">The function needs to return one of the following values:</div>
-<div class="p6"><span class="s3">ft_nomorefields  </span>The FieldIndex is beyond the last available field.</div>
-<div class="p6"><span class="s3">ft_numeric_32  </span>A 32-bit signed number</div>
-<div class="p6"><span class="s3">ft_numeric_64  </span>A 64-bit signed number, e.g. for file sizes</div>
-<div class="p6"><span class="s3">ft_numeric_floating  </span>A double precision floating point number</div>
-<div class="p6"><span class="s3">ft_date  </span>A date value (year, month, day)</div>
-<div class="p6"><span class="s3">ft_time  </span>A time value (hour, minute, second). Date and time are in local time.</div>
-<div class="p6"><span class="s3">ft_boolean  </span>A true/false value</div>
-<div class="p6"><span class="s3">ft_multiplechoice  </span>A value allowing a limited number of choices. Use the Units field to return all possible values.</div>
-<div class="p6"><span class="s3">ft_string  </span>A text string. Values returned by ContentGetValue may be of type ft_stringw or ft_string.</div>
-<div class="p6"><span class="s3">ft_fulltext  </span>A full text (multiple text strings), only used for searching. Can be used e.g. for searching in the text portion of binary files, where the plugin makes the necessary translations. All fields of this type MUST be placed at the END of the field list, otherwise you will get errors in Total Commander!</div>
-<div class="p6"><span class="s3">ft_fulltextw  </span>New in 2.11: Same as ft_fulltext, but with UTF-16 encoding. You can report ft_fulltext in ContentGetSupportedField, and then either ft_fulltext or ft_fulltextw in ContentGetValue, depending on the file.</div>
-<div class="p6"><span class="s3">ft_datetime  </span>A timestamp of type FILETIME, as returned e.g. by FindFirstFile(). It is a 64-bit value representing the number of 100-nanosecond intervals since January 1, 1601. The time MUST be relative to universal time (Greenwich mean time) as returned by the file system, not local time!</div>
-<div class="p6"><span class="s3">ft_comparecontent:  </span>This type can be returned only for FieldIndex &gt;= 10'000! It is used in "Synchronize dirs" only (see notes below). Requires plugin version&gt;=2.10.</div>
-<div class="p4">&nbsp;</div>
-<div class="p6">&nbsp;</div>
-<div class="p6"><B>Remarks:</B></div>
-<div class="p6">&nbsp;</div>
+<div class="p5"><span class="s3">FieldIndex  </span>The index of the field for which TC requests information. Starting with 0, the FieldIndex is increased until the plugin returns an error.</div>
+<div class="p5">&nbsp;</div>
+<div class="p5"><span class="s3">FieldName  </span>Here the plugin has to return the name of the field with index FieldIndex. The field may not contain the following chars: . (dot) | (vertical line) : (colon). You may return a maximum of maxlen characters, including the trailing 0.</div>
+<div class="p5">&nbsp;</div>
+<div class="p5"><span class="s3">Units  </span>When a field supports several units like bytes, kbytes, Mbytes etc, they need to be specified here in the following form: bytes|kbytes|Mbytes . The separator is the vertical dash (Alt+0124). As field names, unit names may not contain a vertical dash, a dot, or a colon. You may return a maximum of maxlen characters, including the trailing 0.</div>
+<div class="p5"><span class="s3">  </span>If the field type is <B>ft_multiplechoice</B>, the plugin needs to return all possible values here. <B>Example:</B> The field "File Type" of the built-in content plugin can have the values "File", "Folder" and "Reparse point". The available choices need to be returned in the following form: File|Folder|Reparse point . The same separator is used as for Units. You may return a maximum of maxlen characters, including the trailing 0. The field type ft_multiplechoice does NOT support any units.</div>
+<div class="p5">&nbsp;</div>
+<div class="p5"><span class="s3">maxlen  </span>The maximum number of characters, including the trailing 0, which may be returned in each of the fields.</div>
+<div class="p5">&nbsp;</div>
+<div class="p5"><B>Return value:</B></div>
+<div class="p5">&nbsp;</div>
+<div class="p5">The function needs to return one of the following values:</div>
+<div class="p5"><span class="s3">ft_nomorefields  </span>The FieldIndex is beyond the last available field.</div>
+<div class="p5"><span class="s3">ft_numeric_32  </span>A 32-bit signed number</div>
+<div class="p5"><span class="s3">ft_numeric_64  </span>A 64-bit signed number, e.g. for file sizes</div>
+<div class="p5"><span class="s3">ft_numeric_floating  </span>A double precision floating point number</div>
+<div class="p5"><span class="s3">ft_date  </span>A date value (year, month, day)</div>
+<div class="p5"><span class="s3">ft_time  </span>A time value (hour, minute, second). Date and time are in local time.</div>
+<div class="p5"><span class="s3">ft_boolean  </span>A true/false value</div>
+<div class="p5"><span class="s3">ft_multiplechoice  </span>A value allowing a limited number of choices. Use the Units field to return all possible values.</div>
+<div class="p5"><span class="s3">ft_string  </span>A text string. Values returned by ContentGetValue may be of type ft_stringw or ft_string.</div>
+<div class="p5"><span class="s3">ft_fulltext  </span>A full text (multiple text strings), only used for searching. Can be used e.g. for searching in the text portion of binary files, where the plugin makes the necessary translations. All fields of this type MUST be placed at the END of the field list, otherwise you will get errors in Total Commander!</div>
+<div class="p5"><span class="s3">ft_fulltextw  </span>New in 2.11: Same as ft_fulltext, but with UTF-16 encoding. You can report ft_fulltext in ContentGetSupportedField, and then either ft_fulltext or ft_fulltextw in ContentGetValue, depending on the file.</div>
+<div class="p5"><span class="s3">ft_datetime  </span>A timestamp of type FILETIME, as returned e.g. by FindFirstFile(). It is a 64-bit value representing the number of 100-nanosecond intervals since January 1, 1601. The time MUST be relative to universal time (Greenwich mean time) as returned by the file system, not local time!</div>
+<div class="p5"><span class="s3">ft_comparecontent:  </span>This type can be returned only for FieldIndex &gt;= 10'000! It is used in "Synchronize dirs" only (see notes below). Requires plugin version&gt;=2.10.</div>
+<div class="p3">&nbsp;</div>
+<div class="p5">&nbsp;</div>
+<div class="p5"><B>Remarks:</B></div>
+<div class="p5">&nbsp;</div>
 <div class="p2">Please note that fields of type ft_fulltext only show up in the search function, not in the multi-rename tool or the file lists. All fields of this type MUST be placed at the END of the field list, otherwise you will get errors in Total Commander! This is necessary because these fields will be removed from field lists e.g. in the "configure custom column view" dialog. You should use the ft_string type for shorter one line texts suitable for displaying in file lists and for renaming.</div>
 <div class="p2">&nbsp;</div>
 <div class="p2">Note about <B>ft_comparecontent</B> (New with TC 7.51, plugin interface version &gt;=2.10): If ContentCompareFiles is exported by the plugin, Total Commander calls ContentGetSupportedField starting with index 10000 from "Synchronize dirs". "FieldName" must be filled with the name of the compare function, e.g. "Compare as text (ignore line breaks)", and the return value must be ft_comparecontent. The Units field is ignored. When comparing two files, Total Commander calls ContentCompareFiles with the FieldIndex value from this function (10000 for the first compare function, 10001 for the second etc).</div>
-<div class="p6">
+<div class="p5">
 </div>
 </BODY></HTML>

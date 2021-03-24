@@ -1,3 +1,4 @@
+
 unit contplug;
   { Contents of file contplug.pas }
 
@@ -29,7 +30,9 @@ const
   ft_OnDemand       = -4;
   ft_NotSupported   = -5;
   ft_SetCancel      = -6;
-  ft_Delayed        = 0;
+  ft_Delayed        =  0;
+  ft_found          =  1;
+  ft_notfound       = -8;
 
 // for ContentSetValue
   ft_SetSuccess     = 0; // setting of the attribute succeeded
@@ -45,6 +48,8 @@ const
   contFlags_PassThrough_Size_Float = 14;
   contFlags_SubstMask              = 14;
   contFlags_FieldEdit              = 16;
+  contflags_fieldsearch            = 32;
+  contflags_searchpageonly         = 64;
 
 // for ContentSendStateInformation
   contst_ReadNewDir        = 1;
@@ -128,6 +133,8 @@ function ContentCompareFiles(ProgressCallback: TProgressCallbackProc; CompareInd
 function ContentCompareFilesW(ProgressCallback: TProgressCallbackProc; CompareIndex: integer;
   FileName1, FileName2: PWideChar; FileDetails: PFileDetailsStruct): integer; stdcall;
 }
-
+function ContentFindValue(FileName: PAnsiChar;FieldIndex, UnitIndex, OperationIndex, FieldType,flags: integer; FieldValue: pbyte):integer; stdcall;
+function ContentFindValueW(FileName: PWideChar;FieldIndex, UnitIndex, OperationIndex, FieldType,flags: integer; FieldValue: pbyte):integer; stdcall;
+function ContentGetSupportedOperators(FieldIndex: integer; FieldOperators: pchar; maxlen: integer):integer; stdcall;
 
 end.

@@ -16,33 +16,35 @@
 <div class="p2">ContentGetSupportedFieldFlags is called to get various information about a plugin variable. It's first called with FieldIndex=-1 to find out whether the plugin supports any special flags at all, and then for each field separately.</div>
 <div class="p2">&nbsp;</div>
 <div class="p2"><B>Declaration:</B></div>
-<div class="p5">&nbsp;</div>
-<div class="p5">int __stdcall ContentGetSupportedFieldFlags(int FieldIndex);</div>
+<div class="p4">&nbsp;</div>
+<div class="p4">int __stdcall ContentGetSupportedFieldFlags(int FieldIndex);</div>
 <div class="p2">&nbsp;</div>
 <div class="p2"><B>Description of parameters:</B></div>
+<div class="p4">&nbsp;</div>
+<div class="p5"><span class="s6">FieldIndex  </span>The index of the field for which flags should be returned.</div>
+<div class="p5"><span class="s3">  </span>-1: Return a combination (or) of all supported flags, e.g. contflags_edit | contflags_substmask</div>
+<div class="p5"><span class="s3">  </span>&gt;=0: Return the field-specific flags</div>
 <div class="p5">&nbsp;</div>
-<div class="p6"><span class="s6">FieldIndex  </span>The index of the field for which flags should be returned.</div>
-<div class="p6"><span class="s3">  </span>-1: Return a combination (or) of all supported flags, e.g. contflags_edit | contflags_substmask</div>
-<div class="p6"><span class="s3">  </span>&gt;=0: Return the field-specific flags</div>
-<div class="p6">&nbsp;</div>
-<div class="p6"><B>Return value:</B></div>
+<div class="p5"><B>Return value:</B></div>
 <div class="p2">&nbsp;</div>
 <div class="p2">The function needs to return a combination of the following flags:</div>
 <div class="p2">&nbsp;</div>
-<div class="p10"><span class="s9">contflags_edit<span class="s2">  </span></span>The plugin allows to edit (modify) this field via Files - Change attributes. This should only be returned for fields where it makes sense, e.g. a file date.</div>
-<div class="p6">&nbsp;</div>
+<div class="p9"><span class="s9">contflags_edit<span class="s2">  </span></span>The plugin allows to edit (modify) this field via Files - Change attributes. This should only be returned for fields where it makes sense, e.g. a file date.</div>
+<div class="p5">&nbsp;</div>
 <div class="p2">Only ONE of the following flags: (See description and example under "Note").</div>
-<div class="p10"><span class="s9">contflags_substsize  </span>use the file size</div>
-<div class="p10"><span class="s9">contflags_substdatetime  </span>use the file date+time (ft_datetime)</div>
-<div class="p10"><span class="s9">contflags_substdate  </span>use the file date (fd_date)</div>
-<div class="p10"><span class="s9">contflags_substtime  </span>use the file time (fd_time)</div>
-<div class="p10"><span class="s9">contflags_substattributes  </span>use the file attributes (numeric)</div>
-<div class="p10"><span class="s9">contflags_substattributestr  </span>use the file attribute string in form -a--</div>
-<div class="p10"><span class="s10">contflags_passthrough_size_float  </span>pass the size as ft_numeric_floating to <A HREF="contentgetvalue.htm">ContentGetValue</A>. The plugin will then apply the correct units, and return the formatted display string in the additional string field.</div>
-<div class="p10"><span class="s9">contflags_substmask  </span>A combination of all above substitution flags. Should be returned for index -1 if the content plugin contains ANY of the substituted fields.</div>
-<div class="p10"><span class="s9">contflags_fieldedit  </span>If set, TC will show a button &gt;&gt; in change attributes which lets the user call the function <A HREF="contenteditvalue.htm">ContentEditValue</A>. This allows plugins to have their own field editors, like the custom editor for tc.comments or tc.*date/time fields.</div>
-<div class="p11">&nbsp;</div>
-<div class="p6">&nbsp;</div>
+<div class="p9"><span class="s9">contflags_substsize  </span>use the file size</div>
+<div class="p9"><span class="s9">contflags_substdatetime  </span>use the file date+time (ft_datetime)</div>
+<div class="p9"><span class="s9">contflags_substdate  </span>use the file date (fd_date)</div>
+<div class="p9"><span class="s9">contflags_substtime  </span>use the file time (fd_time)</div>
+<div class="p9"><span class="s9">contflags_substattributes  </span>use the file attributes (numeric)</div>
+<div class="p9"><span class="s9">contflags_substattributestr  </span>use the file attribute string in form -a--</div>
+<div class="p9">&nbsp;</div>
+<div class="p9"><span class="s10">contflags_passthrough_size_float  </span>pass the size as ft_numeric_floating to <A HREF="contentgetvalue.htm">ContentGetValue</A>. The plugin will then apply the correct units, and return the formatted display string in the additional string field.</div>
+<div class="p9"><span class="s9">contflags_substmask  </span>A combination of all above substitution flags. Should be returned for index -1 if the content plugin contains ANY of the substituted fields.</div>
+<div class="p9"><span class="s9">contflags_fieldedit  </span>If set, TC will show a button &gt;&gt; in change attributes which lets the user call the function <A HREF="contenteditvalue.htm">ContentEditValue</A>. This allows plugins to have their own field editors, like the custom editor for tc.comments or tc.*date/time fields.</div>
+<div class="p9"><span class="s9">contflags_fieldsearch  </span>Pass the search string to the plugin via <A HREF="hs2200.htm">ContentFindValue</A> instead of calling ContentGetValue and comparing the results. New in Total Commander 10.</div>
+<div class="p9"><span class="s9">contflags_searchpageonly  </span>Only show this field in the search dialog (also for color filters etc.), but not in the multi-rename tool or for custom columns. Useful for fields which require a parameter, like the field [tc.partner file with other extension] which can be used to find all jpg files which have a raw file companion. This field requires the extension of the companion as a parameter.</div>
+<div class="p5">&nbsp;</div>
 <div class="p2"><B>Note:</B></div>
 <div class="p2">&nbsp;</div>
 <div class="p2">Returning one of the&nbsp; contflags_subst* flags instructs Total Commander to replace (substitute) the returned variable by the indicated default internal value if no plugin variable can be retrieved. <B>Example:</B> Content plugins do not work on FTP servers. A field which shows the size of files and directories should be replaced by the size of the FTP files in this case, so return contflags_substsize. Alternatvely, you can also return contflags_passthrough_size_float - then Total Commander will call ContentGetValue and pass the size as ft_numeric_floating to your plugin, so you can format the display string yourself, and apply custom units.</div>
